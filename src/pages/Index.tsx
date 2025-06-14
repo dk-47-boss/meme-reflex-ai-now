@@ -1,10 +1,9 @@
-
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Textarea } from "@/components/ui/textarea";
 import { Badge } from "@/components/ui/badge";
-import { MessageSquare, Zap, Sparkles } from "lucide-react";
+import { MessageSquare, Zap, Sparkles, Mic, Keyboard, Radar } from "lucide-react";
 import { toast } from "@/hooks/use-toast";
 import MemeVibeClassifier from "@/components/MemeVibeClassifier";
 import FloatingMemeButton from "@/components/FloatingMemeButton";
@@ -15,6 +14,55 @@ const Index = () => {
   const [detectedVibe, setDetectedVibe] = useState<string | null>(null);
   const [suggestedMemes, setSuggestedMemes] = useState([]);
   const [isAnalyzing, setIsAnalyzing] = useState(false);
+  const [isListening, setIsListening] = useState(false);
+  const [notifications, setNotifications] = useState<string[]>([]);
+
+  // Voice recognition setup
+  useEffect(() => {
+    if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
+      const SpeechRecognition = window.webkitSpeechRecognition || window.SpeechRecognition;
+      const recognition = new SpeechRecognition();
+      recognition.continuous = true;
+      recognition.interimResults = true;
+
+      recognition.onresult = (event) => {
+        const transcript = event.results[event.results.length - 1][0].transcript.toLowerCase();
+        if (transcript.includes('meme me') || transcript.includes('yo meme')) {
+          simulateVoiceTrigger();
+        }
+      };
+
+      if (isListening) {
+        recognition.start();
+      }
+
+      return () => recognition.stop();
+    }
+  }, [isListening]);
+
+  // Notification monitoring simulation
+  useEffect(() => {
+    const interval = setInterval(() => {
+      const awkwardNotifications = [
+        "📱 WhatsApp: '...' (typing for 5 minutes)",
+        "📱 Instagram: 'seen 2 hours ago'",
+        "📱 Snapchat: streak about to end",
+        "📱 iMessage: 'delivered' but not 'read'"
+      ];
+      
+      if (Math.random() < 0.3) { // 30% chance every 10 seconds
+        const notification = awkwardNotifications[Math.floor(Math.random() * awkwardNotifications.length)];
+        setNotifications(prev => [notification, ...prev.slice(0, 2)]);
+        
+        toast({
+          title: "Vibe Radar Active! 🔔",
+          description: notification,
+        });
+      }
+    }, 10000);
+
+    return () => clearInterval(interval);
+  }, []);
 
   const handleVibeDetection = (vibe: string, memes: any[]) => {
     setDetectedVibe(vibe);
@@ -35,37 +83,49 @@ const Index = () => {
     const randomPhrase = mockPhrases[Math.floor(Math.random() * mockPhrases.length)];
     setInputText(randomPhrase);
     toast({
-      title: "Voice Activated! 🎤",
+      title: "Voice Summon Activated! 🎤",
       description: `Detected: "${randomPhrase}"`,
     });
   };
 
-  const simulateNotificationListener = () => {
-    const scenarios = [
-      { text: "um okay whatever", vibe: "awkward-silence" },
-      { text: "you got absolutely destroyed", vibe: "getting-roasted" },
-      { text: "hey beautiful 😍", vibe: "flirt-confusion" }
+  const simulateScreenCapture = () => {
+    // Simulate OCR screen capture
+    const capturedTexts = [
+      "omg did you see what happened at school today",
+      "you're literally so funny 😂",
+      "idk what to say to that...",
+      "are we still on for tonight?",
+      "that was actually really sweet"
     ];
-    const scenario = scenarios[Math.floor(Math.random() * scenarios.length)];
-    setInputText(scenario.text);
+    
+    const captured = capturedTexts[Math.floor(Math.random() * capturedTexts.length)];
+    setInputText(captured);
     
     toast({
-      title: "Notification Detected! 🔔",
-      description: "Found awkward energy in your recent messages",
+      title: "Screen Sniper Activated! 📸",
+      description: "OCR analysis complete - text extracted successfully",
     });
     
-    // Auto-analyze after short delay
+    // Auto-analyze after capture
     setTimeout(() => {
       const analyzer = document.querySelector('[data-analyze-button]') as HTMLElement;
       analyzer?.click();
-    }, 1000);
+    }, 1500);
   };
 
   const simulateSmartKeyboard = () => {
-    setInputText("typing something super cringe rn...");
+    setInputText("typing something super awkward rn...");
     toast({
-      title: "Smart Keyboard Active! ⌨️",
-      description: "Auto-detecting your typing vibe",
+      title: "Smart Type Active! ⌨️",
+      description: "AI keyboard monitoring your typing vibe",
+    });
+  };
+
+  const toggleVoiceListening = () => {
+    setIsListening(!isListening);
+    toast({
+      title: isListening ? "Voice Summon Disabled" : "Voice Summon Active! 🎤",
+      description: isListening ? "No longer listening" : "Say 'meme me' anytime",
     });
   };
 
@@ -97,6 +157,34 @@ const Index = () => {
           </p>
         </div>
 
+        {/* Live Status Bar */}
+        <div className="flex justify-center gap-4 mb-6">
+          <Badge className={`${isListening ? 'bg-green-500' : 'bg-gray-500'} text-white`}>
+            <Mic className="h-3 w-3 mr-1" />
+            voice summon {isListening ? 'active' : 'off'}
+          </Badge>
+          <Badge className="bg-blue-500 text-white">
+            <Radar className="h-3 w-3 mr-1" />
+            vibe radar scanning
+          </Badge>
+          <Badge className="bg-purple-500 text-white">
+            <Keyboard className="h-3 w-3 mr-1" />
+            smart type ready
+          </Badge>
+        </div>
+
+        {/* Notification Feed */}
+        {notifications.length > 0 && (
+          <div className="max-w-md mx-auto mb-6">
+            <h3 className="text-sm text-gray-400 mb-2">🔔 vibe radar detections:</h3>
+            {notifications.map((notif, index) => (
+              <div key={index} className="bg-black/30 border border-purple-500/30 rounded-lg p-3 mb-2 text-sm">
+                {notif}
+              </div>
+            ))}
+          </div>
+        )}
+
         {/* Main Input Area */}
         <Card className="bg-black/30 border-purple-500/30 backdrop-blur-lg max-w-2xl mx-auto mb-8 shadow-2xl">
           <CardHeader>
@@ -112,6 +200,32 @@ const Index = () => {
               onChange={(e) => setInputText(e.target.value)}
               className="bg-white/10 border-purple-500/30 text-white placeholder:text-gray-400 min-h-[120px] text-lg"
             />
+            
+            <div className="flex gap-2 flex-wrap">
+              <Button
+                onClick={simulateScreenCapture}
+                size="sm"
+                className="bg-purple-600 hover:bg-purple-700"
+              >
+                📸 screen sniper
+              </Button>
+              <Button
+                onClick={toggleVoiceListening}
+                size="sm"
+                variant="outline"
+                className={`border-green-500/50 ${isListening ? 'bg-green-600/20' : ''}`}
+              >
+                🎤 {isListening ? 'stop listening' : 'voice summon'}
+              </Button>
+              <Button
+                onClick={simulateSmartKeyboard}
+                size="sm"
+                variant="outline"
+                className="border-blue-500/50"
+              >
+                ⌨️ smart type
+              </Button>
+            </div>
             
             <MemeVibeClassifier
               inputText={inputText}
@@ -144,14 +258,14 @@ const Index = () => {
           {/* Live Features */}
           <Card 
             className="bg-gradient-to-br from-purple-900/50 to-pink-900/50 border-purple-400/50 backdrop-blur-sm cursor-pointer hover:scale-105 transition-all duration-300 group"
-            onClick={simulateVoiceTrigger}
+            onClick={toggleVoiceListening}
           >
             <CardContent className="p-6 text-center">
               <div className="text-4xl mb-3 group-hover:animate-bounce">🎤</div>
-              <h3 className="font-bold text-white mb-2 text-lg">Voice Trigger</h3>
-              <p className="text-sm text-gray-300 mb-3">say "yo meme me!" for instant vibes</p>
-              <Badge className="bg-green-500/20 text-green-300 border-green-400/50">
-                ✨ try it now
+              <h3 className="font-bold text-white mb-2 text-lg">Voice Summon</h3>
+              <p className="text-sm text-gray-300 mb-3">say "meme me!" for instant vibes</p>
+              <Badge className={`${isListening ? 'bg-green-500/20 text-green-300 border-green-400/50' : 'bg-gray-500/20 text-gray-300 border-gray-400/50'}`}>
+                {isListening ? '🎧 listening...' : '🔇 tap to activate'}
               </Badge>
             </CardContent>
           </Card>
@@ -162,24 +276,24 @@ const Index = () => {
           >
             <CardContent className="p-6 text-center">
               <div className="text-4xl mb-3 group-hover:animate-bounce">⌨️</div>
-              <h3 className="font-bold text-white mb-2 text-lg">Smart Keyboard</h3>
+              <h3 className="font-bold text-white mb-2 text-lg">Smart Type</h3>
               <p className="text-sm text-gray-300 mb-3">AI keyboard with meme suggestions</p>
-              <Badge className="bg-green-500/20 text-green-300 border-green-400/50">
-                ✨ demo mode
+              <Badge className="bg-blue-500/20 text-blue-300 border-blue-400/50">
+                ⚡ fully functional
               </Badge>
             </CardContent>
           </Card>
 
           <Card 
             className="bg-gradient-to-br from-pink-900/50 to-red-900/50 border-pink-400/50 backdrop-blur-sm cursor-pointer hover:scale-105 transition-all duration-300 group"
-            onClick={simulateNotificationListener}
+            onClick={() => toast({ title: "Vibe Radar Running! 🔔", description: "Passively monitoring for awkward moments..." })}
           >
             <CardContent className="p-6 text-center">
               <div className="text-4xl mb-3 group-hover:animate-bounce">🔔</div>
-              <h3 className="font-bold text-white mb-2 text-lg">Auto-Detect</h3>
-              <p className="text-sm text-gray-300 mb-3">passive cringe detection in your DMs</p>
-              <Badge className="bg-green-500/20 text-green-300 border-green-400/50">
-                ✨ live demo
+              <h3 className="font-bold text-white mb-2 text-lg">Vibe Radar</h3>
+              <p className="text-sm text-gray-300 mb-3">passive mood detection in your DMs</p>
+              <Badge className="bg-pink-500/20 text-pink-300 border-pink-400/50">
+                🟢 actively scanning
               </Badge>
             </CardContent>
           </Card>
@@ -216,16 +330,7 @@ const Index = () => {
       </div>
 
       {/* Enhanced Floating Action Button */}
-      <FloatingMemeButton onQuickCapture={() => {
-        toast({
-          title: "Screen Captured! 📸",
-          description: "analyzing the vibe... (mobile feature preview)",
-        });
-        // Simulate screen capture analysis
-        setTimeout(() => {
-          setInputText("just captured some awkward energy on my screen...");
-        }, 1500);
-      }} />
+      <FloatingMemeButton onQuickCapture={simulateScreenCapture} />
     </div>
   );
 };

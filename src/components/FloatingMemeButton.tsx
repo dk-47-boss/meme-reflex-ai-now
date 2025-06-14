@@ -49,7 +49,7 @@ const FloatingMemeButton: React.FC<FloatingMemeButtonProps> = ({ onQuickCapture 
                 className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white h-24 flex flex-col items-center justify-center shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105"
               >
                 <span className="text-3xl mb-2">📸</span>
-                <span className="font-bold">screen capture</span>
+                <span className="font-bold">screen sniper</span>
                 <span className="text-xs opacity-80">instant OCR analysis</span>
               </Button>
               
@@ -57,39 +57,69 @@ const FloatingMemeButton: React.FC<FloatingMemeButtonProps> = ({ onQuickCapture 
                 variant="outline"
                 className="border-purple-500/50 text-white hover:bg-purple-600/20 h-24 flex flex-col items-center justify-center hover:scale-105 transition-all duration-300"
                 onClick={() => {
-                  alert('Voice trigger activated! Say "yo meme me!"');
+                  // Actually implement voice recognition
+                  if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
+                    const SpeechRecognition = window.webkitSpeechRecognition || window.SpeechRecognition;
+                    const recognition = new SpeechRecognition();
+                    recognition.onresult = (event) => {
+                      const transcript = event.results[0][0].transcript.toLowerCase();
+                      if (transcript.includes('meme') || transcript.includes('help')) {
+                        onQuickCapture();
+                      }
+                    };
+                    recognition.start();
+                  }
                   setIsOpen(false);
                 }}
               >
                 <span className="text-3xl mb-2">🎤</span>
-                <span className="font-bold">voice trigger</span>
-                <span className="text-xs opacity-80">hands-free vibes</span>
+                <span className="font-bold">voice summon</span>
+                <span className="text-xs opacity-80">say "meme me!"</span>
               </Button>
               
               <Button
                 variant="outline"
                 className="border-blue-500/50 text-white hover:bg-blue-600/20 h-24 flex flex-col items-center justify-center hover:scale-105 transition-all duration-300"
                 onClick={() => {
-                  alert('Smart keyboard activated! AI meme suggestions while typing.');
+                  // Simulate smart keyboard activation
+                  const textArea = document.querySelector('textarea');
+                  if (textArea) {
+                    textArea.focus();
+                    textArea.value = "yo this is awkward lol...";
+                    textArea.dispatchEvent(new Event('input', { bubbles: true }));
+                  }
                   setIsOpen(false);
                 }}
               >
                 <span className="text-3xl mb-2">⌨️</span>
-                <span className="font-bold">smart keyboard</span>
-                <span className="text-xs opacity-80">type + meme sync</span>
+                <span className="font-bold">smart type</span>
+                <span className="text-xs opacity-80">AI-powered suggestions</span>
               </Button>
               
               <Button
                 variant="outline"
                 className="border-pink-500/50 text-white hover:bg-pink-600/20 h-24 flex flex-col items-center justify-center hover:scale-105 transition-all duration-300"
                 onClick={() => {
-                  alert('Auto-detect enabled! Monitoring for awkward moments...');
+                  // Simulate notification monitoring
+                  const scenarios = [
+                    "someone left you on read for 3 hours...",
+                    "they replied with just 'k'",
+                    "double text situation detected"
+                  ];
+                  const scenario = scenarios[Math.floor(Math.random() * scenarios.length)];
+                  setTimeout(() => {
+                    const textArea = document.querySelector('textarea') as HTMLTextAreaElement;
+                    if (textArea) {
+                      textArea.value = scenario;
+                      textArea.dispatchEvent(new Event('input', { bubbles: true }));
+                    }
+                  }, 1000);
                   setIsOpen(false);
                 }}
               >
                 <span className="text-3xl mb-2">🔔</span>
-                <span className="font-bold">auto-detect</span>
-                <span className="text-xs opacity-80">passive cringe alerts</span>
+                <span className="font-bold">vibe radar</span>
+                <span className="text-xs opacity-80">passive mood detection</span>
               </Button>
             </div>
             

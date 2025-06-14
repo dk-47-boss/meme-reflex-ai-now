@@ -43,12 +43,12 @@ const VIBE_CATEGORIES = {
       { id: 12, title: 'homer disappearing', url: 'https://media.giphy.com/media/4pMX5rJ4PYAEM/giphy.gif', tags: ['disappear', 'ghost'] }
     ]
   },
-  'cringe-moments': {
-    keywords: ['cringe', 'embarrassing', 'awkward', 'yikes', 'oof', 'secondhand', 'uncomfortable', 'sus'],
+  'sus-moments': {
+    keywords: ['sus', 'weird', 'strange', 'uncomfortable', 'yikes', 'oof', 'secondhand', 'cap'],
     memes: [
       { id: 13, title: 'ultimate facepalm', url: 'https://media.giphy.com/media/XsUtdIeJ0MWMo/giphy.gif', tags: ['facepalm', 'disappointed'] },
       { id: 14, title: 'hiding in shame', url: 'https://media.giphy.com/media/4PT6v3PQKG6Yg/giphy.gif', tags: ['hide', 'shame'] },
-      { id: 15, title: 'yikes forever', url: 'https://media.giphy.com/media/l4FGuhL4U2WyjdkaY/giphy.gif', tags: ['yikes', 'cringe'] }
+      { id: 15, title: 'side eye energy', url: 'https://media.giphy.com/media/l4FGuhL4U2WyjdkaY/giphy.gif', tags: ['side-eye', 'sus'] }
     ]
   },
   'big-win-energy': {
