@@ -2,7 +2,7 @@
 import React from 'react';
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Share2 } from "lucide-react";
+import { Share2, Copy } from "lucide-react";
 import { toast } from "@/hooks/use-toast";
 
 interface Meme {
@@ -23,23 +23,26 @@ const MemeDisplay: React.FC<MemeDisplayProps> = ({ memes, vibe }) => {
     try {
       if (navigator.share) {
         await navigator.share({
-          title: `Perfect meme for ${vibe}`,
-          text: `Check out this meme: ${meme.title}`,
+          title: `this meme hits different for ${vibe.toLowerCase()} energy`,
+          text: `sending you this fire meme: ${meme.title} 🔥`,
           url: meme.url
         });
+        toast({
+          title: "shared the vibe! 📤",
+          description: "meme sent to the group chat fr"
+        });
       } else {
-        // Fallback: copy URL to clipboard
         await navigator.clipboard.writeText(meme.url);
         toast({
-          title: "Meme URL copied! 📋",
-          description: "Paste it in your chat app"
+          title: "link copied bestie! 📋",
+          description: "paste that fire content anywhere"
         });
       }
     } catch (error) {
-      console.error('Error sharing meme:', error);
+      console.error('Share failed:', error);
       toast({
-        title: "Share failed",
-        description: "Try copying the image directly",
+        title: "sharing failed rip 💀",
+        description: "try the copy button instead",
         variant: "destructive"
       });
     }
@@ -47,28 +50,26 @@ const MemeDisplay: React.FC<MemeDisplayProps> = ({ memes, vibe }) => {
 
   const handleCopyMeme = async (meme: Meme) => {
     try {
-      // Try to copy the image as blob
       const response = await fetch(meme.url);
       const blob = await response.blob();
       await navigator.clipboard.write([
         new ClipboardItem({ [blob.type]: blob })
       ]);
       toast({
-        title: "Meme copied! 🎯",
-        description: "Paste it directly in your chat"
+        title: "meme copied! 🎯",
+        description: "ready to paste that heat directly in chat"
       });
     } catch (error) {
-      // Fallback to URL copy
       try {
         await navigator.clipboard.writeText(meme.url);
         toast({
-          title: "Meme URL copied! 📋",
-          description: "Paste the link in your chat"
+          title: "URL copied instead! 📋",
+          description: "paste the link bestie"
         });
       } catch (urlError) {
         toast({
-          title: "Copy failed",
-          description: "Try right-clicking to save the image",
+          title: "copy failed bestie 😭",
+          description: "try saving the image manually",
           variant: "destructive"
         });
       }
@@ -76,39 +77,48 @@ const MemeDisplay: React.FC<MemeDisplayProps> = ({ memes, vibe }) => {
   };
 
   return (
-    <div className="max-w-4xl mx-auto">
-      <div className="text-center mb-6">
-        <h2 className="text-2xl font-bold text-white mb-2">
-          Perfect Memes for "{vibe}" Energy 🎯
+    <div className="max-w-6xl mx-auto">
+      <div className="text-center mb-8">
+        <h2 className="text-3xl font-black text-white mb-3 bg-gradient-to-r from-pink-400 to-purple-400 bg-clip-text text-transparent">
+          perfect memes for that "{vibe.toLowerCase()}" energy 🎯
         </h2>
-        <p className="text-gray-400">
-          Tap any meme to copy and paste instantly
+        <p className="text-gray-300 text-lg">
+          tap any meme to copy + paste instantly (no cap)
         </p>
+        <div className="flex justify-center items-center gap-2 mt-2">
+          <span className="text-2xl">💯</span>
+          <span className="text-sm text-gray-400">these hit different fr</span>
+          <span className="text-2xl">🔥</span>
+        </div>
       </div>
 
       <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
         {memes.map((meme, index) => (
-          <Card key={meme.id} className="bg-black/20 border-purple-500/30 backdrop-blur-sm overflow-hidden hover:border-purple-400/50 transition-all duration-300">
+          <Card 
+            key={meme.id} 
+            className="bg-black/40 border-purple-500/30 backdrop-blur-lg overflow-hidden hover:border-pink-400/50 transition-all duration-300 hover:scale-105 group shadow-xl"
+          >
             <CardContent className="p-0">
-              <div className="relative group">
+              <div className="relative">
                 <img 
                   src={meme.url} 
                   alt={meme.title}
-                  className="w-full h-48 object-cover cursor-pointer transition-transform duration-300 group-hover:scale-105"
+                  className="w-full h-56 object-cover cursor-pointer transition-all duration-300 group-hover:brightness-110"
                   onClick={() => handleCopyMeme(meme)}
                   loading="lazy"
                 />
-                <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                  <div className="text-center space-y-2">
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-all duration-300 flex items-end justify-center pb-4">
+                  <div className="flex gap-3">
                     <Button
                       size="sm"
                       onClick={(e) => {
                         e.stopPropagation();
                         handleCopyMeme(meme);
                       }}
-                      className="bg-purple-600 hover:bg-purple-700 text-white"
+                      className="bg-purple-600 hover:bg-purple-700 text-white shadow-lg"
                     >
-                      📋 Copy Meme
+                      <Copy className="h-4 w-4 mr-1" />
+                      copy meme
                     </Button>
                     <Button
                       size="sm"
@@ -117,23 +127,29 @@ const MemeDisplay: React.FC<MemeDisplayProps> = ({ memes, vibe }) => {
                         e.stopPropagation();
                         handleShareMeme(meme);
                       }}
-                      className="border-white/50 text-white hover:bg-white/10"
+                      className="border-white/50 text-white hover:bg-white/10 shadow-lg"
                     >
                       <Share2 className="h-4 w-4 mr-1" />
-                      Share
+                      share
                     </Button>
                   </div>
                 </div>
+                
+                {/* Reaction indicator */}
+                <div className="absolute top-3 right-3 bg-black/60 rounded-full px-2 py-1 text-xs text-white font-medium">
+                  #{index + 1} fire 🔥
+                </div>
               </div>
+              
               <div className="p-4">
-                <h3 className="font-semibold text-white mb-2">{meme.title}</h3>
-                <div className="flex flex-wrap gap-1">
+                <h3 className="font-bold text-white mb-2 text-lg">{meme.title}</h3>
+                <div className="flex flex-wrap gap-2">
                   {meme.tags.map((tag, tagIndex) => (
                     <span 
                       key={tagIndex}
-                      className="px-2 py-1 bg-purple-600/20 text-purple-300 text-xs rounded-full"
+                      className="px-3 py-1 bg-gradient-to-r from-purple-600/20 to-pink-600/20 text-purple-300 text-xs rounded-full border border-purple-500/30 font-medium"
                     >
-                      {tag}
+                      #{tag}
                     </span>
                   ))}
                 </div>
@@ -143,9 +159,18 @@ const MemeDisplay: React.FC<MemeDisplayProps> = ({ memes, vibe }) => {
         ))}
       </div>
 
-      <div className="text-center mt-8">
-        <p className="text-gray-400 text-sm">
-          💡 Pro tip: These memes are perfect for your current vibe. More categories coming soon!
+      <div className="text-center mt-10 space-y-4">
+        <div className="flex justify-center items-center gap-4 text-3xl">
+          <span>💀</span>
+          <span>🤌</span>
+          <span>✨</span>
+          <span>👑</span>
+        </div>
+        <p className="text-gray-300 font-medium">
+          💡 these memes are perfectly curated for your current vibe check
+        </p>
+        <p className="text-gray-500 text-sm">
+          mobile app dropping soon with even more fire features 🚀
         </p>
       </div>
     </div>
