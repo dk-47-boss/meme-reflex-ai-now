@@ -8,6 +8,7 @@ import { toast } from "@/hooks/use-toast";
 import MemeVibeClassifier from "@/components/MemeVibeClassifier";
 import FloatingMemeButton from "@/components/FloatingMemeButton";
 import MemeDisplay from "@/components/MemeDisplay";
+import NativeService from "@/components/NativeService";
 
 const Index = () => {
   const [inputText, setInputText] = useState('');
