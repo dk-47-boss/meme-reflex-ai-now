@@ -57,11 +57,11 @@ const FloatingMemeButton: React.FC<FloatingMemeButtonProps> = ({ onQuickCapture 
                 variant="outline"
                 className="border-purple-500/50 text-white hover:bg-purple-600/20 h-24 flex flex-col items-center justify-center hover:scale-105 transition-all duration-300"
                 onClick={() => {
-                  // Actually implement voice recognition
-                  if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
-                    const SpeechRecognition = window.webkitSpeechRecognition || window.SpeechRecognition;
+                  // Actually implement voice recognition with proper typing
+                  const SpeechRecognition = (window as any).webkitSpeechRecognition || (window as any).SpeechRecognition;
+                  if (SpeechRecognition) {
                     const recognition = new SpeechRecognition();
-                    recognition.onresult = (event) => {
+                    recognition.onresult = (event: any) => {
                       const transcript = event.results[0][0].transcript.toLowerCase();
                       if (transcript.includes('meme') || transcript.includes('help')) {
                         onQuickCapture();
