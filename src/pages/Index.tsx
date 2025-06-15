@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -16,10 +17,10 @@ const themeConfig = {
   synthwave: {
     title: "MemeVault",
     description: "where digital chaos meets tactical meme deployment 🎭",
-    sheetTitle: "meme emergency services",
+    sheetTitle: "meme-ergency services",
     sheetDescription: "choose your chaos control agent buddy 💫",
     features: [
-      { name: 'VoiceWave', description: 'voice-activated emergency meme deployment', short_description: 'voice emergency backup', emoji: '🎤' },
+      { name: 'VoiceWave', description: 'voice-activated meme-ergency deployment', short_description: 'voice meme-ergency backup', emoji: '🎤' },
       { name: 'Snatcher', description: 'steal text from literally anywhere', short_description: 'steal text from anywhere', emoji: '📸' },
       { name: 'Hunter', description: 'anti-ghosting patrol & comeback generator', short_description: 'anti-ghosting patrol', emoji: '👻' },
       { name: 'Wildcard', description: 'unleash your unhinged energy', short_description: 'unhinged energy unleashed', emoji: '🎭' }
@@ -35,7 +36,7 @@ const themeConfig = {
     sheetTitle: "Player Select",
     sheetDescription: "choose your special move 🍄",
     features: [
-      { name: 'Pixel Pulse', description: '8-bit audio emergency broadcast', short_description: '8-bit audio backup', emoji: '👾' },
+      { name: 'Pixel Pulse', description: '8-bit audio meme-ergency broadcast', short_description: '8-bit audio backup', emoji: '👾' },
       { name: 'Glitch Grab', description: 'extract text from pixelated screens', short_description: 'grab pixel text', emoji: '🕹️' },
       { name: 'Ghost Hunt', description: 'track high scores of vanished players', short_description: 'hunt digital ghosts', emoji: '👻' },
       { name: 'Power-Up', description: 'gain a temporary social buff', short_description: 'get a 1-UP', emoji: '🍄' }
@@ -136,7 +137,7 @@ const Index = () => {
 
       recognition.onresult = (event: any) => {
         const transcript = event.results[event.results.length - 1][0].transcript.toLowerCase();
-        if (transcript.includes('emergency meme') || transcript.includes('save me') || transcript.includes('help me')) {
+        if (transcript.includes('meme-ergency') || transcript.includes('save me') || transcript.includes('help me')) {
           simulateVoiceTrigger();
         }
       };
@@ -191,7 +192,7 @@ const Index = () => {
     const randomPhrase = emergencyPhrases[Math.floor(Math.random() * emergencyPhrases.length)];
     setInputText(randomPhrase);
     toast({
-      title: "🚨 EMERGENCY MEME DEPLOYMENT!",
+      title: "🚨 MEME-ERGENCY DEPLOYED!",
       description: `Voice activated: "${randomPhrase}"`,
     });
     // Auto-analyze after trigger
@@ -243,7 +244,7 @@ const Index = () => {
     setIsVoiceModeActive(!isVoiceModeActive);
     toast({
       title: isVoiceModeActive ? "🎤 VoiceWave Deactivated" : "🎤 VoiceWave ACTIVE!",
-      description: isVoiceModeActive ? "Voice emergency services offline" : "Say 'emergency meme' for instant backup",
+      description: isVoiceModeActive ? "Voice meme-ergency services offline" : "Say 'meme-ergency' for instant backup",
     });
   };
 
