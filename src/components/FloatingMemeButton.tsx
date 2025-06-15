@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
@@ -69,7 +68,7 @@ const FloatingMemeButton: React.FC<FloatingMemeButtonProps> = ({ onQuickCapture 
     setIsOpen(false);
   };
 
-  const activateBlitz = () => {
+  const activateVoiceWave = () => {
     const SpeechRecognition = (window as any).webkitSpeechRecognition || (window as any).SpeechRecognition;
     if (SpeechRecognition) {
       const recognition = new SpeechRecognition();
@@ -77,7 +76,7 @@ const FloatingMemeButton: React.FC<FloatingMemeButtonProps> = ({ onQuickCapture 
       recognition.interimResults = true;
       
       toast({
-        title: "⚡ Blitz Mode Active!",
+        title: "🎤 VoiceWave Active!",
         description: "Say 'emergency meme' or 'save me' for instant help",
       });
       
@@ -99,13 +98,13 @@ const FloatingMemeButton: React.FC<FloatingMemeButtonProps> = ({ onQuickCapture 
       setTimeout(() => {
         recognition.stop();
         toast({
-          title: "⚡ Blitz Mode Standby",
+          title: "🎤 VoiceWave Standby",
           description: "Voice patrol ended - reactivate anytime",
         });
       }, 30000);
     } else {
       toast({
-        title: "⚡ Blitz Mode (Limited)",
+        title: "🎤 VoiceWave (Limited)",
         description: "Voice features work better in the mobile app",
       });
     }
@@ -255,12 +254,12 @@ const FloatingMemeButton: React.FC<FloatingMemeButtonProps> = ({ onQuickCapture 
               </Button>
               
               <Button
-                onClick={activateBlitz}
+                onClick={activateVoiceWave}
                 variant="outline"
                 className="border-red-500/50 text-white hover:bg-red-600/20 h-24 flex flex-col items-center justify-center hover:scale-105 transition-all duration-300"
               >
-                <span className="text-3xl mb-2">⚡</span>
-                <span className="font-bold">blitz</span>
+                <span className="text-3xl mb-2">🎤</span>
+                <span className="font-bold">voicewave</span>
                 <span className="text-xs opacity-80">voice emergency backup</span>
               </Button>
               

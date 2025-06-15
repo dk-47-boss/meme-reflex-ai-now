@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -15,13 +16,13 @@ const Index = () => {
   const [detectedVibe, setDetectedVibe] = useState<string | null>(null);
   const [suggestedMemes, setSuggestedMemes] = useState([]);
   const [isAnalyzing, setIsAnalyzing] = useState(false);
-  const [isSirenModeActive, setIsSirenModeActive] = useState(false);
+  const [isVoiceModeActive, setIsVoiceModeActive] = useState(false);
   const [notifications, setNotifications] = useState<string[]>([]);
 
   // Enhanced voice recognition with background monitoring
   useEffect(() => {
     const SpeechRecognition = (window as any).webkitSpeechRecognition || (window as any).SpeechRecognition;
-    if (SpeechRecognition && isSirenModeActive) {
+    if (SpeechRecognition && isVoiceModeActive) {
       const recognition = new SpeechRecognition();
       recognition.continuous = true;
       recognition.interimResults = true;
@@ -36,7 +37,7 @@ const Index = () => {
       recognition.start();
       return () => recognition.stop();
     }
-  }, [isSirenModeActive]);
+  }, [isVoiceModeActive]);
 
   // Enhanced notification monitoring with more chaos
   useEffect(() => {
@@ -55,7 +56,7 @@ const Index = () => {
         setNotifications(prev => [notification, ...prev.slice(0, 2)]);
         
         toast({
-          title: "Digital Guardian Alert! 🛡️",
+          title: "Chaos Control Alert! 🛡️",
           description: notification,
         });
       }
@@ -121,11 +122,28 @@ const Index = () => {
     });
   };
 
-  const toggleBlitz = () => {
-    setIsSirenModeActive(!isSirenModeActive);
+  const toggleVoiceMode = () => {
+    setIsVoiceModeActive(!isVoiceModeActive);
     toast({
-      title: isSirenModeActive ? "⚡ Blitz Mode Deactivated" : "⚡ Blitz Mode ACTIVE!",
-      description: isSirenModeActive ? "Emergency services offline" : "Say 'emergency meme' for instant backup",
+      title: isVoiceModeActive ? "🎤 VoiceWave Deactivated" : "🎤 VoiceWave ACTIVE!",
+      description: isVoiceModeActive ? "Voice emergency services offline" : "Say 'emergency meme' for instant backup",
+    });
+  };
+
+  const simulateWildcard = () => {
+    const scenarios = [
+      "plot twist: you're about to become the main character",
+      "chaos mode: saying something completely unhinged", 
+      "unleashing the unfiltered thoughts energy",
+      "activating zero social anxiety protocol"
+    ];
+    
+    const scenario = scenarios[Math.floor(Math.random() * scenarios.length)];
+    setInputText(scenario);
+    
+    toast({
+      title: "🎭 Wildcard UNLEASHED!",
+      description: "All social filters have been disabled buddy",
     });
   };
 
@@ -151,7 +169,7 @@ const Index = () => {
             <span className="text-4xl animate-spin">🌀</span>
             <Sparkles className="h-8 w-8 text-yellow-400 animate-pulse" />
             <h1 className="text-5xl md:text-7xl font-black mb-2 bg-gradient-to-r from-pink-400 via-purple-400 to-cyan-400 bg-clip-text text-transparent animate-pulse">
-              VibeShield Emergency HQ
+              MemeVault Pro
             </h1>
             <Zap className="h-8 w-8 text-yellow-400 animate-pulse" />
             <span className="text-4xl animate-spin">✨</span>
@@ -168,9 +186,9 @@ const Index = () => {
 
         {/* Controlled Status Bar */}
         <div className="flex justify-center gap-4 mb-6 flex-wrap">
-          <Badge className={`${isSirenModeActive ? 'bg-red-500 animate-pulse' : 'bg-gray-500'} text-white`}>
+          <Badge className={`${isVoiceModeActive ? 'bg-red-500 animate-pulse' : 'bg-gray-500'} text-white`}>
             <Mic className="h-3 w-3 mr-1" />
-            emergency hotline {isSirenModeActive ? 'LIVE' : 'standby'}
+            voicewave {isVoiceModeActive ? 'LIVE' : 'standby'}
           </Badge>
           <Badge className="bg-purple-500 text-white">
             <Radar className="h-3 w-3 mr-1" />
@@ -183,6 +201,41 @@ const Index = () => {
           <Badge className="bg-pink-500 text-white">
             👻 ghost patrol: active
           </Badge>
+        </div>
+
+        {/* 4 Quick Action Features */}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8 max-w-4xl mx-auto">
+          <Button
+            onClick={simulateSnatcher}
+            className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white h-20 flex flex-col items-center justify-center shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105"
+          >
+            <span className="text-2xl mb-1">📸</span>
+            <span className="font-bold text-sm">snatcher</span>
+          </Button>
+          
+          <Button
+            onClick={toggleVoiceMode}
+            className={`${isVoiceModeActive ? 'bg-gradient-to-r from-red-600 to-orange-600 animate-pulse' : 'bg-gradient-to-r from-blue-600 to-cyan-600'} hover:scale-105 text-white h-20 flex flex-col items-center justify-center shadow-lg hover:shadow-xl transition-all duration-300`}
+          >
+            <span className="text-2xl mb-1">🎤</span>
+            <span className="font-bold text-sm">voicewave</span>
+          </Button>
+          
+          <Button
+            onClick={simulateHunter}
+            className="bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white h-20 flex flex-col items-center justify-center shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105"
+          >
+            <span className="text-2xl mb-1">👻</span>
+            <span className="font-bold text-sm">hunter</span>
+          </Button>
+          
+          <Button
+            onClick={simulateWildcard}
+            className="bg-gradient-to-r from-yellow-600 to-orange-600 hover:from-yellow-700 hover:to-orange-700 text-white h-20 flex flex-col items-center justify-center shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105"
+          >
+            <span className="text-2xl mb-1">🎭</span>
+            <span className="font-bold text-sm">wildcard</span>
+          </Button>
         </div>
 
         {/* Main Input Area */}
@@ -200,32 +253,6 @@ const Index = () => {
               onChange={(e) => setInputText(e.target.value)}
               className="bg-white/10 border-purple-500/30 text-white placeholder:text-gray-400 min-h-[120px] text-lg"
             />
-            
-            <div className="flex gap-2 flex-wrap">
-              <Button
-                onClick={simulateSnatcher}
-                size="sm"
-                className="bg-purple-600 hover:bg-purple-700"
-              >
-                📸 snatch it
-              </Button>
-              <Button
-                onClick={toggleBlitz}
-                size="sm"
-                variant="outline"
-                className={`border-red-500/50 ${isSirenModeActive ? 'bg-red-600/20 animate-pulse' : ''}`}
-              >
-                ⚡ {isSirenModeActive ? 'chill mode' : 'blitz mode'}
-              </Button>
-              <Button
-                onClick={simulateHunter}
-                size="sm"
-                variant="outline"
-                className="border-blue-500/50"
-              >
-                👻 ghost hunt
-              </Button>
-            </div>
             
             <MemeVibeClassifier
               inputText={inputText}
@@ -257,14 +284,14 @@ const Index = () => {
         <div className="grid md:grid-cols-2 gap-6 mt-12">
           <Card 
             className="bg-gradient-to-br from-red-900/50 to-pink-900/50 border-red-400/50 backdrop-blur-sm cursor-pointer hover:scale-105 transition-all duration-300 group"
-            onClick={toggleBlitz}
+            onClick={toggleVoiceMode}
           >
             <CardContent className="p-6 text-center">
-              <div className="text-4xl mb-3 group-hover:animate-bounce">⚡</div>
-              <h3 className="font-bold text-white mb-2 text-lg">Blitz</h3>
+              <div className="text-4xl mb-3 group-hover:animate-bounce">🎤</div>
+              <h3 className="font-bold text-white mb-2 text-lg">VoiceWave</h3>
               <p className="text-sm text-gray-300 mb-3">voice-activated emergency meme deployment</p>
-              <Badge className={`${isSirenModeActive ? 'bg-red-500/20 text-red-300 border-red-400/50 animate-pulse' : 'bg-gray-500/20 text-gray-300 border-gray-400/50'}`}>
-                {isSirenModeActive ? '⚡ BLITZ ACTIVE' : '🔇 tap to activate'}
+              <Badge className={`${isVoiceModeActive ? 'bg-red-500/20 text-red-300 border-red-400/50 animate-pulse' : 'bg-gray-500/20 text-gray-300 border-gray-400/50'}`}>
+                {isVoiceModeActive ? '🎤 VOICEWAVE ACTIVE' : '🔇 tap to activate'}
               </Badge>
             </CardContent>
           </Card>
@@ -299,10 +326,7 @@ const Index = () => {
 
           <Card 
             className="bg-gradient-to-br from-yellow-900/50 to-orange-900/50 border-yellow-400/50 backdrop-blur-sm cursor-pointer hover:scale-105 transition-all duration-300 group"
-            onClick={() => {
-              setInputText("activating main character energy...");
-              toast({ title: "🎭 Wildcard Engaged!", description: "All social filters have been disabled buddy" });
-            }}
+            onClick={simulateWildcard}
           >
             <CardContent className="p-6 text-center">
               <div className="text-4xl mb-3 group-hover:animate-bounce">🎭</div>

@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -34,7 +33,7 @@ const MemeDisplay: React.FC<MemeDisplayProps> = ({ memes, vibe }) => {
       } else {
         await navigator.clipboard.writeText(meme.url);
         toast({
-          title: "link copied bestie! 📋",
+          title: "link copied buddy! 📋",
           description: "paste that fire content anywhere"
         });
       }
@@ -64,11 +63,11 @@ const MemeDisplay: React.FC<MemeDisplayProps> = ({ memes, vibe }) => {
         await navigator.clipboard.writeText(meme.url);
         toast({
           title: "URL copied instead! 📋",
-          description: "paste the link bestie"
+          description: "paste the link buddy"
         });
       } catch (urlError) {
         toast({
-          title: "copy failed bestie 😭",
+          title: "copy failed buddy 😭",
           description: "try saving the image manually",
           variant: "destructive"
         });
