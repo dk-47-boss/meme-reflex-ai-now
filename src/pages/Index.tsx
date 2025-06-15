@@ -56,7 +56,7 @@ const Index = () => {
         setNotifications(prev => [notification, ...prev.slice(0, 2)]);
         
         toast({
-          title: "Chaos Control Alert! 🛡️",
+          title: "Chaos Alert! 🛡️",
           description: notification,
         });
       }
@@ -203,26 +203,18 @@ const Index = () => {
           </Badge>
         </div>
 
-        {/* Meme Results */}
-        {suggestedMemes.length > 0 && (
-          <MemeDisplay 
-            memes={suggestedMemes} 
-            vibe={detectedVibe || ''} 
-          />
-        )}
-
-        {/* Updated Feature Demo Cards */}
-        <div className="grid md:grid-cols-2 gap-6 mt-12">
+        {/* Updated Feature Demo Cards - Made Smaller */}
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
           <Card 
             className="bg-gradient-to-br from-red-900/50 to-pink-900/50 border-red-400/50 backdrop-blur-sm cursor-pointer hover:scale-105 transition-all duration-300 group"
             onClick={toggleVoiceMode}
           >
-            <CardContent className="p-6 text-center">
-              <div className="text-4xl mb-3 group-hover:animate-bounce">🎤</div>
-              <h3 className="font-bold text-white mb-2 text-lg">VoiceWave</h3>
-              <p className="text-sm text-gray-300 mb-3">voice-activated emergency meme deployment</p>
-              <Badge className={`${isVoiceModeActive ? 'bg-red-500/20 text-red-300 border-red-400/50 animate-pulse' : 'bg-gray-500/20 text-gray-300 border-gray-400/50'}`}>
-                {isVoiceModeActive ? '🎤 VOICEWAVE ACTIVE' : '🔇 tap to activate'}
+            <CardContent className="p-4 text-center">
+              <div className="text-3xl mb-2 group-hover:animate-bounce">🎤</div>
+              <h3 className="font-bold text-white mb-1 text-sm">VoiceWave</h3>
+              <p className="text-xs text-gray-300 mb-2">voice-activated emergency meme deployment</p>
+              <Badge className={`text-xs ${isVoiceModeActive ? 'bg-red-500/20 text-red-300 border-red-400/50 animate-pulse' : 'bg-gray-500/20 text-gray-300 border-gray-400/50'}`}>
+                {isVoiceModeActive ? '🎤 ACTIVE' : '🔇 tap'}
               </Badge>
             </CardContent>
           </Card>
@@ -231,12 +223,12 @@ const Index = () => {
             className="bg-gradient-to-br from-purple-900/50 to-blue-900/50 border-purple-400/50 backdrop-blur-sm cursor-pointer hover:scale-105 transition-all duration-300 group"
             onClick={simulateSnatcher}
           >
-            <CardContent className="p-6 text-center">
-              <div className="text-4xl mb-3 group-hover:animate-bounce">📸</div>
-              <h3 className="font-bold text-white mb-2 text-lg">Snatcher</h3>
-              <p className="text-sm text-gray-300 mb-3">steal text from literally anywhere</p>
-              <Badge className="bg-purple-500/20 text-purple-300 border-purple-400/50">
-                ⚡ fully operational
+            <CardContent className="p-4 text-center">
+              <div className="text-3xl mb-2 group-hover:animate-bounce">📸</div>
+              <h3 className="font-bold text-white mb-1 text-sm">Snatcher</h3>
+              <p className="text-xs text-gray-300 mb-2">steal text from literally anywhere</p>
+              <Badge className="text-xs bg-purple-500/20 text-purple-300 border-purple-400/50">
+                ⚡ operational
               </Badge>
             </CardContent>
           </Card>
@@ -245,12 +237,12 @@ const Index = () => {
             className="bg-gradient-to-br from-blue-900/50 to-cyan-900/50 border-blue-400/50 backdrop-blur-sm cursor-pointer hover:scale-105 transition-all duration-300 group"
             onClick={simulateHunter}
           >
-            <CardContent className="p-6 text-center">
-              <div className="text-4xl mb-3 group-hover:animate-bounce">👻</div>
-              <h3 className="font-bold text-white mb-2 text-lg">Hunter</h3>
-              <p className="text-sm text-gray-300 mb-3">anti-ghosting patrol & comeback generator</p>
-              <Badge className="bg-blue-500/20 text-blue-300 border-blue-400/50">
-                🟢 actively hunting ghosts
+            <CardContent className="p-4 text-center">
+              <div className="text-3xl mb-2 group-hover:animate-bounce">👻</div>
+              <h3 className="font-bold text-white mb-1 text-sm">Hunter</h3>
+              <p className="text-xs text-gray-300 mb-2">anti-ghosting patrol & comeback generator</p>
+              <Badge className="text-xs bg-blue-500/20 text-blue-300 border-blue-400/50">
+                🟢 hunting ghosts
               </Badge>
             </CardContent>
           </Card>
@@ -259,23 +251,31 @@ const Index = () => {
             className="bg-gradient-to-br from-yellow-900/50 to-orange-900/50 border-yellow-400/50 backdrop-blur-sm cursor-pointer hover:scale-105 transition-all duration-300 group"
             onClick={simulateWildcard}
           >
-            <CardContent className="p-6 text-center">
-              <div className="text-4xl mb-3 group-hover:animate-bounce">🎭</div>
-              <h3 className="font-bold text-white mb-2 text-lg">Wildcard</h3>
-              <p className="text-sm text-gray-300 mb-3">unleash your unhinged energy</p>
-              <Badge className="bg-yellow-500/20 text-yellow-300 border-yellow-400/50">
-                💫 chaos ready to deploy
+            <CardContent className="p-4 text-center">
+              <div className="text-3xl mb-2 group-hover:animate-bounce">🎭</div>
+              <h3 className="font-bold text-white mb-1 text-sm">Wildcard</h3>
+              <p className="text-xs text-gray-300 mb-2">unleash your unhinged energy</p>
+              <Badge className="text-xs bg-yellow-500/20 text-yellow-300 border-yellow-400/50">
+                💫 chaos ready
               </Badge>
             </CardContent>
           </Card>
         </div>
+
+        {/* Meme Results */}
+        {suggestedMemes.length > 0 && (
+          <MemeDisplay 
+            memes={suggestedMemes} 
+            vibe={detectedVibe || ''} 
+          />
+        )}
 
         {/* Main Input Area - Now at Bottom */}
         <Card className="bg-black/30 border-purple-500/30 backdrop-blur-lg max-w-2xl mx-auto mt-8 mb-8 shadow-2xl">
           <CardHeader>
             <CardTitle className="text-white flex items-center gap-2">
               <MessageSquare className="h-5 w-5 text-purple-400" />
-              spill the digital tea buddy ☕
+              spill the digital buddy ☕
             </CardTitle>
           </CardHeader>
           <CardContent className="space-y-4">
