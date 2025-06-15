@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -13,6 +12,81 @@ import MemeDisplay from "@/components/MemeDisplay";
 import NativeService from "@/components/NativeService";
 import ThemeSwitcher from "@/components/ThemeSwitcher";
 
+const themeConfig = {
+  synthwave: {
+    title: "MemeVault",
+    description: "where digital chaos meets tactical meme deployment 🎭",
+    sheetTitle: "meme emergency services",
+    sheetDescription: "choose your chaos control agent buddy 💫",
+    features: [
+      { name: 'VoiceWave', description: 'voice-activated emergency meme deployment', short_description: 'voice emergency backup', emoji: '🎤' },
+      { name: 'Snatcher', description: 'steal text from literally anywhere', short_description: 'steal text from anywhere', emoji: '📸' },
+      { name: 'Hunter', description: 'anti-ghosting patrol & comeback generator', short_description: 'anti-ghosting patrol', emoji: '👻' },
+      { name: 'Wildcard', description: 'unleash your unhinged energy', short_description: 'unhinged energy unleashed', emoji: '🎭' }
+    ],
+  },
+  'retro-neon-arcade': {
+    title: "Arcade Alley",
+    description: "insert coin to deploy tactical memes 🕹️",
+    sheetTitle: "Player Select",
+    sheetDescription: "choose your special move 🍄",
+    features: [
+      { name: 'Pixel Pulse', description: '8-bit audio emergency broadcast', short_description: '8-bit audio backup', emoji: '👾' },
+      { name: 'Glitch Grab', description: 'extract text from pixelated screens', short_description: 'grab pixel text', emoji: '🕹️' },
+      { name: 'Ghost Hunt', description: 'track high scores of vanished players', short_description: 'hunt digital ghosts', emoji: '👻' },
+      { name: 'Power-Up', description: 'gain a temporary social buff', short_description: 'get a 1-UP', emoji: '🍄' }
+    ],
+  },
+  'cyberpunk-vaporwave': {
+    title: "NetRunner's Deck",
+    description: "jack in to the meme-stream for tactical data 🌃",
+    sheetTitle: "System Interface",
+    sheetDescription: "select your program to execute 💾",
+    features: [
+      { name: 'EchoNet', description: 'broadcast across the net', short_description: 'net-wide broadcast', emoji: '🌐' },
+      { name: 'Data-Thief', description: 'jack-in and extract data streams', short_description: 'steal data streams', emoji: '💾' },
+      { name: 'Shadow Run', description: 'hunt rogue AIs in the digital rain', short_description: 'hunt rogue AIs', emoji: '🤖' },
+      { name: 'Glitch Protocol', description: 'initiate reality distortion', short_description: 'distort reality', emoji: '🌀' }
+    ],
+  },
+  'sunset-vibes': {
+    title: "Sunset Memery",
+    description: "chasing golden hour memes into the horizon 🌅",
+    sheetTitle: "Golden Hour Toolkit",
+    sheetDescription: "pick your instrument for the moment ✨",
+    features: [
+      { name: 'Serenade', description: 'whisper sweet nothings to the breeze', short_description: 'whisper to the breeze', emoji: '🎶' },
+      { name: 'Vibe Catch', description: 'capture the essence of golden hour', short_description: 'capture the vibe', emoji: '🌇' },
+      { name: 'Sun Sentinel', description: 'watch over fading conversations', short_description: 'watch convos fade', emoji: '🧡' },
+      { name: 'Main Character', description: 'your moment to shine in the spotlight', short_description: 'become the star', emoji: '✨' }
+    ],
+  },
+  'electric-mint': {
+    title: "Fresh Memes",
+    description: "serving up crisp, cool memes on demand 🍃",
+    sheetTitle: "Refreshment Station",
+    sheetDescription: "pick your tool to cool things down 🧊",
+    features: [
+      { name: 'Minty Mic', description: 'a fresh take on voice commands', short_description: 'fresh voice commands', emoji: '🍃' },
+      { name: 'Fresh Take', description: 'grab the freshest screen content', short_description: 'grab fresh content', emoji: '🌿' },
+      { name: 'Cool Tracker', description: 'keep tabs with a chill vibe', short_description: 'track with chill', emoji: '🧊' },
+      { name: 'Refresh', description: 'reboot your social battery', short_description: 'reboot social battery', emoji: '💧' }
+    ],
+  },
+  'hot-magenta-chaos': {
+    title: "Chaos Core",
+    description: "unleashing pure, unadulterated meme mayhem 💥",
+    sheetTitle: "Agent of Chaos",
+    sheetDescription: "choose your weapon of destruction 😈",
+    features: [
+      { name: 'Chaos Call', description: 'scream into the void, with style', short_description: 'scream into the void', emoji: '💥' },
+      { name: 'Magenta Snag', description: 'violently yoink text with color', short_description: 'yoink colorful text', emoji: '💖' },
+      { name: 'Anarchy Agent', description: 'sow discord in your group chats', short_description: 'create group chaos', emoji: '😈' },
+      { name: 'Mayhem Mode', description: 'embrace the beautiful chaotic mess', short_description: 'embrace the mess', emoji: '🌪️' }
+    ],
+  }
+};
+
 const Index = () => {
   const [inputText, setInputText] = useState('');
   const [detectedVibe, setDetectedVibe] = useState<string | null>(null);
@@ -21,6 +95,8 @@ const Index = () => {
   const [isVoiceModeActive, setIsVoiceModeActive] = useState(false);
   const [notifications, setNotifications] = useState<string[]>([]);
   const [currentTheme, setCurrentTheme] = useState('synthwave');
+
+  const currentThemeConfig = themeConfig[currentTheme as keyof typeof themeConfig];
 
   useEffect(() => {
     document.documentElement.setAttribute('data-theme', currentTheme);
@@ -169,6 +245,8 @@ const Index = () => {
     }, 1500);
   };
 
+  const featureHandlers = [toggleVoiceMode, simulateSnatcher, simulateHunter, simulateWildcard];
+
   return (
     <div className="min-h-screen text-foreground overflow-x-hidden">
       <div className="fixed top-6 right-6 z-50">
@@ -202,13 +280,13 @@ const Index = () => {
               className="text-5xl md:text-7xl font-black mb-2 bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent animate-pulse font-chakra"
               style={{ textShadow: "0 0 12px hsl(var(--primary) / 0.8)" }}
             >
-              MemeVault
+              {currentThemeConfig.title}
             </h1>
             <Zap className="h-8 w-8 text-primary animate-pulse" />
             <span className="text-4xl animate-spin">✨</span>
           </div>
           <p className="text-xl md:text-2xl text-muted-foreground mb-2 font-medium">
-            where digital chaos meets tactical meme deployment 🎭
+            {currentThemeConfig.description}
           </p>
           <p className="text-sm text-muted-foreground flex items-center justify-center gap-2">
             <span className="inline-block w-2 h-2 bg-primary rounded-full animate-pulse"></span>
@@ -238,65 +316,29 @@ const Index = () => {
 
         {/* Updated Feature Demo Cards - Made Smaller */}
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
-          <Card 
-            className="bg-card/50 border-destructive/50 backdrop-blur-sm cursor-pointer hover:scale-105 transition-all duration-300 group animate-float"
-            onClick={toggleVoiceMode}
-            style={{ animationDelay: '0s' }}
-          >
-            <CardContent className="p-4 text-center">
-              <div className="text-3xl mb-2 group-hover:animate-bounce">🎤</div>
-              <h3 className="font-bold text-foreground mb-1 text-sm font-chakra">VoiceWave</h3>
-              <p className="text-xs text-muted-foreground mb-2">voice-activated emergency meme deployment</p>
-              <Badge variant={isVoiceModeActive ? 'destructive' : 'secondary'} className={`${isVoiceModeActive ? 'animate-pulse' : ''}`}>
-                {isVoiceModeActive ? '🎤 ACTIVE' : '🔇 tap'}
-              </Badge>
-            </CardContent>
-          </Card>
-
-          <Card 
-            className="bg-card/50 border-primary/30 backdrop-blur-sm cursor-pointer hover:scale-105 transition-all duration-300 group animate-float"
-            onClick={simulateSnatcher}
-            style={{ animationDelay: '1s' }}
-          >
-            <CardContent className="p-4 text-center">
-              <div className="text-3xl mb-2 group-hover:animate-bounce">📸</div>
-              <h3 className="font-bold text-foreground mb-1 text-sm font-chakra">Snatcher</h3>
-              <p className="text-xs text-muted-foreground mb-2">steal text from literally anywhere</p>
-              <Badge variant="secondary">
-                ⚡ operational
-              </Badge>
-            </CardContent>
-          </Card>
-
-          <Card 
-            className="bg-card/50 border-primary/30 backdrop-blur-sm cursor-pointer hover:scale-105 transition-all duration-300 group animate-float"
-            onClick={simulateHunter}
-            style={{ animationDelay: '2s' }}
-          >
-            <CardContent className="p-4 text-center">
-              <div className="text-3xl mb-2 group-hover:animate-bounce">👻</div>
-              <h3 className="font-bold text-foreground mb-1 text-sm font-chakra">Hunter</h3>
-              <p className="text-xs text-muted-foreground mb-2">anti-ghosting patrol & comeback generator</p>
-              <Badge variant="secondary">
-                🟢 hunting ghosts
-              </Badge>
-            </CardContent>
-          </Card>
-
-          <Card 
-            className="bg-card/50 border-primary/30 backdrop-blur-sm cursor-pointer hover:scale-105 transition-all duration-300 group animate-float"
-            onClick={simulateWildcard}
-            style={{ animationDelay: '0.5s' }}
-          >
-            <CardContent className="p-4 text-center">
-              <div className="text-3xl mb-2 group-hover:animate-bounce">🎭</div>
-              <h3 className="font-bold text-foreground mb-1 text-sm font-chakra">Wildcard</h3>
-              <p className="text-xs text-muted-foreground mb-2">unleash your unhinged energy</p>
-              <Badge variant="secondary">
-                💫 chaos ready
-              </Badge>
-            </CardContent>
-          </Card>
+          {currentThemeConfig.features.map((feature, index) => (
+            <Card 
+              key={feature.name}
+              className={`bg-card/50 ${index === 0 ? 'border-destructive/50' : 'border-primary/30'} backdrop-blur-sm cursor-pointer hover:scale-105 transition-all duration-300 group animate-float`}
+              onClick={featureHandlers[index]}
+              style={{ animationDelay: `${index * 0.5}s` }}
+            >
+              <CardContent className="p-4 text-center">
+                <div className="text-3xl mb-2 group-hover:animate-bounce">{feature.emoji}</div>
+                <h3 className="font-bold text-foreground mb-1 text-sm font-chakra">{feature.name}</h3>
+                <p className="text-xs text-muted-foreground mb-2">{feature.description}</p>
+                {index === 0 ? (
+                  <Badge variant={isVoiceModeActive ? 'destructive' : 'secondary'} className={`${isVoiceModeActive ? 'animate-pulse' : ''}`}>
+                    {isVoiceModeActive ? `${feature.emoji} ACTIVE` : '🔇 tap'}
+                  </Badge>
+                ) : (
+                  <Badge variant="secondary">
+                    {['⚡ operational', '🟢 hunting ghosts', '💫 chaos ready'][index - 1]}
+                  </Badge>
+                )}
+              </CardContent>
+            </Card>
+          ))}
         </div>
 
         {/* Meme Results */}
@@ -364,6 +406,9 @@ const Index = () => {
         onQuickCapture={simulateSnatcher} 
         onToggleVoiceMode={toggleVoiceMode}
         isVoiceModeActive={isVoiceModeActive}
+        featureSet={currentThemeConfig.features}
+        sheetTitle={currentThemeConfig.sheetTitle}
+        sheetDescription={currentThemeConfig.sheetDescription}
       />
     </div>
   );

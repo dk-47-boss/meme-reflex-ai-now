@@ -9,10 +9,30 @@ interface FloatingMemeButtonProps {
   onQuickCapture: () => void;
   onToggleVoiceMode: () => void;
   isVoiceModeActive: boolean;
+  featureSet: {
+    name: string;
+    description: string;
+    short_description: string;
+    emoji: string;
+  }[];
+  sheetTitle: string;
+  sheetDescription: string;
 }
 
-const FloatingMemeButton: React.FC<FloatingMemeButtonProps> = ({ onQuickCapture, onToggleVoiceMode, isVoiceModeActive }) => {
+const FloatingMemeButton: React.FC<FloatingMemeButtonProps> = ({ 
+  onQuickCapture, 
+  onToggleVoiceMode, 
+  isVoiceModeActive,
+  featureSet,
+  sheetTitle,
+  sheetDescription 
+}) => {
   const [isOpen, setIsOpen] = useState(false);
+
+  const voiceWaveFeature = featureSet[0];
+  const snatcherFeature = featureSet[1];
+  const hunterFeature = featureSet[2];
+  const wildcardFeature = featureSet[3];
 
   const autoAnalyze = () => {
     setTimeout(() => {
@@ -210,11 +230,11 @@ const FloatingMemeButton: React.FC<FloatingMemeButtonProps> = ({ onQuickCapture,
             <SheetHeader>
               <SheetTitle className="text-foreground text-xl font-black flex items-center gap-2 font-chakra">
                 <span>🆘</span>
-                meme emergency services
+                {sheetTitle}
                 <span>⚡</span>
               </SheetTitle>
               <SheetDescription className="text-muted-foreground text-base">
-                choose your chaos control agent buddy 💫
+                {sheetDescription}
               </SheetDescription>
             </SheetHeader>
             
@@ -223,9 +243,9 @@ const FloatingMemeButton: React.FC<FloatingMemeButtonProps> = ({ onQuickCapture,
                 onClick={activateSnatcher}
                 className="bg-gradient-to-r from-primary to-secondary hover:from-primary/90 hover:to-secondary/90 text-primary-foreground h-24 flex flex-col items-center justify-center shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105"
               >
-                <span className="text-3xl mb-2">📸</span>
-                <span className="font-bold">snatcher</span>
-                <span className="text-xs opacity-80">steal text from anywhere</span>
+                <span className="text-3xl mb-2">{snatcherFeature.emoji}</span>
+                <span className="font-bold">{snatcherFeature.name.toLowerCase()}</span>
+                <span className="text-xs opacity-80">{snatcherFeature.short_description}</span>
               </Button>
               
               <Button
@@ -233,9 +253,9 @@ const FloatingMemeButton: React.FC<FloatingMemeButtonProps> = ({ onQuickCapture,
                 variant="outline"
                 className={`border-destructive/50 text-foreground h-24 flex flex-col items-center justify-center hover:scale-105 transition-all duration-300 ${isVoiceModeActive ? 'bg-destructive/40 animate-pulse' : 'hover:bg-destructive/20'}`}
               >
-                <span className="text-3xl mb-2">🎤</span>
-                <span className="font-bold">voicewave</span>
-                <span className="text-xs opacity-80">{isVoiceModeActive ? 'LISTENING...' : 'voice emergency backup'}</span>
+                <span className="text-3xl mb-2">{voiceWaveFeature.emoji}</span>
+                <span className="font-bold">{voiceWaveFeature.name.toLowerCase()}</span>
+                <span className="text-xs opacity-80">{isVoiceModeActive ? 'LISTENING...' : voiceWaveFeature.short_description}</span>
               </Button>
               
               <Button
@@ -243,9 +263,9 @@ const FloatingMemeButton: React.FC<FloatingMemeButtonProps> = ({ onQuickCapture,
                 variant="outline"
                 className="border-primary/50 text-foreground hover:bg-primary/20 h-24 flex flex-col items-center justify-center hover:scale-105 transition-all duration-300"
               >
-                <span className="text-3xl mb-2">👻</span>
-                <span className="font-bold">hunter</span>
-                <span className="text-xs opacity-80">anti-ghosting patrol</span>
+                <span className="text-3xl mb-2">{hunterFeature.emoji}</span>
+                <span className="font-bold">{hunterFeature.name.toLowerCase()}</span>
+                <span className="text-xs opacity-80">{hunterFeature.short_description}</span>
               </Button>
               
               <Button
@@ -253,9 +273,9 @@ const FloatingMemeButton: React.FC<FloatingMemeButtonProps> = ({ onQuickCapture,
                 variant="outline"
                 className="border-primary/50 text-foreground hover:bg-primary/20 h-24 flex flex-col items-center justify-center hover:scale-105 transition-all duration-300"
               >
-                <span className="text-3xl mb-2">🎭</span>
-                <span className="font-bold">wildcard</span>
-                <span className="text-xs opacity-80">unhinged energy unleashed</span>
+                <span className="text-3xl mb-2">{wildcardFeature.emoji}</span>
+                <span className="font-bold">{wildcardFeature.name.toLowerCase()}</span>
+                <span className="text-xs opacity-80">{wildcardFeature.short_description}</span>
               </Button>
             </div>
             
