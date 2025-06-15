@@ -1,9 +1,11 @@
+
 import React, { useState, useEffect } from 'react';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Textarea } from "@/components/ui/textarea";
 import { Badge } from "@/components/ui/badge";
-import { MessageSquare, Zap, Sparkles, Mic, Keyboard, Radar } from "lucide-react";
+import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
+import { Brush, Paintbrush, MessageSquare, Zap, Sparkles, Mic, Keyboard, Radar } from "lucide-react";
 import { toast } from "@/hooks/use-toast";
 import MemeVibeClassifier from "@/components/MemeVibeClassifier";
 import FloatingMemeButton from "@/components/FloatingMemeButton";
@@ -169,6 +171,24 @@ const Index = () => {
 
   return (
     <div className="min-h-screen text-foreground overflow-x-hidden">
+      <div className="fixed top-6 right-6 z-50">
+        <Sheet>
+          <SheetTrigger asChild>
+            <Button variant="outline" size="icon" className="rounded-full bg-card/50 backdrop-blur-sm border-primary/30 hover:bg-card/70 animate-[pulse_4s_ease-in-out_infinite]">
+              <Brush className="h-5 w-5 text-primary" />
+            </Button>
+          </SheetTrigger>
+          <SheetContent className="bg-background/90 backdrop-blur-lg border-primary/20">
+            <SheetHeader>
+              <SheetTitle className="text-lg font-bold flex items-center gap-2 font-chakra text-foreground">
+                <Paintbrush className="h-5 w-5 text-primary" />
+                Vibe Check: Choose Your Theme
+              </SheetTitle>
+            </SheetHeader>
+            <ThemeSwitcher setTheme={setCurrentTheme} currentTheme={currentTheme} />
+          </SheetContent>
+        </Sheet>
+      </div>
       {/* Native Service Integration */}
       <NativeService onTriggerMeme={simulateVoiceTrigger} />
       
@@ -196,9 +216,6 @@ const Index = () => {
             <span className="inline-block w-2 h-2 bg-primary/70 rounded-full animate-pulse"></span>
           </p>
         </div>
-
-        {/* Theme Switcher */}
-        <ThemeSwitcher setTheme={setCurrentTheme} currentTheme={currentTheme} />
 
         {/* Controlled Status Bar */}
         <div className="flex justify-center gap-4 mb-6 flex-wrap">
