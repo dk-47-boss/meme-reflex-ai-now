@@ -25,44 +25,28 @@
     --input: 270 50% 90%;
     --ring: 330 80% 60%;
     --radius: 0.5rem;
-    --sidebar-background: 0 0% 98%;
-    --sidebar-foreground: 240 5.3% 26.1%;
-    --sidebar-primary: 240 5.9% 10%;
-    --sidebar-primary-foreground: 0 0% 98%;
-    --sidebar-accent: 240 4.8% 95.9%;
-    --sidebar-accent-foreground: 240 5.9% 10%;
-    --sidebar-border: 220 13% 91%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
   }
 
   .dark {
-    --background: 270 50% 10%;
-    --foreground: 210 20% 98%;
-    --card: 270 50% 10%;
-    --card-foreground: 210 20% 98%;
-    --popover: 270 50% 10%;
-    --popover-foreground: 210 20% 98%;
-    --primary: 330 80% 60%;
-    --primary-foreground: 0 0% 100%;
-    --secondary: 180 70% 50%;
-    --secondary-foreground: 270 50% 10%;
-    --muted: 270 50% 15%;
-    --muted-foreground: 217.9 10.6% 64.9%;
-    --accent: 60 90% 60%;
-    --accent-foreground: 270 50% 10%;
-    --destructive: 0 62.8% 30.6%;
+    --background: 222 89% 6%;
+    --foreground: 210 40% 98%;
+    --card: 265 60% 12%;
+    --card-foreground: 210 40% 98%;
+    --popover: 265 60% 12%;
+    --popover-foreground: 210 40% 98%;
+    --primary: 320 100% 55%;
+    --primary-foreground: 210 40% 98%;
+    --secondary: 180 100% 50%;
+    --secondary-foreground: 222 89% 6%;
+    --muted: 265 60% 20%;
+    --muted-foreground: 215.4 16.3% 56.9%;
+    --accent: 180 100% 50%;
+    --accent-foreground: 222 89% 6%;
+    --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 210 40% 98%;
-    --border: 270 50% 20%;
-    --input: 270 50% 15%;
-    --ring: 330 80% 60%;
-    --sidebar-background: 270 50% 10%;
-    --sidebar-foreground: 210 20% 98%;
-    --sidebar-primary: 330 80% 60%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 270 50% 15%;
-    --sidebar-accent-foreground: 210 20% 98%;
-    --sidebar-border: 270 50% 20%;
-    --sidebar-ring: 330 80% 60%;
+    --border: 265 60% 25%;
+    --input: 265 60% 20%;
+    --ring: 320 100% 55%;
   }
 }
 
@@ -73,5 +57,9 @@
 
   body {
     @apply bg-background text-foreground;
+    background-size: 40px 40px;
+    background-image:
+      linear-gradient(to right, hsl(var(--border) / 0.1) 1px, transparent 1px),
+      linear-gradient(to bottom, hsl(var(--border) / 0.1) 1px, transparent 1px);
   }
 }
