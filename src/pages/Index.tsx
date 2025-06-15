@@ -75,7 +75,7 @@ const Index = () => {
 
   const simulateVoiceTrigger = () => {
     const emergencyPhrases = [
-      "BESTIE THEY JUST SAID THE MOST UNHINGED THING",
+      "BUDDY THEY JUST SAID THE MOST UNHINGED THING",
       "why do they text like a LinkedIn post 💀",
       "not them treating me like a side quest",
       "the secondhand embarrassment is ASTRONOMICAL"
@@ -88,10 +88,10 @@ const Index = () => {
     });
   };
 
-  const simulateScreenYoinker = () => {
+  const simulateSnatcher = () => {
     // Enhanced screen capture simulation
     const yoinkedTexts = [
-      "bestie really thought that was smooth 💀",
+      "buddy really thought that was smooth 💀",
       "sir the delusion is concerning",
       "not you manifesting a text back",
       "they're really acting like the main character",
@@ -102,7 +102,7 @@ const Index = () => {
     setInputText(captured);
     
     toast({
-      title: "📸 Screen Yoinker Activated!",
+      title: "📸 Snatcher Activated!",
       description: "Text successfully stolen from the digital streets",
     });
     
@@ -113,18 +113,18 @@ const Index = () => {
     }, 1500);
   };
 
-  const simulateGhostBuster = () => {
+  const simulateHunter = () => {
     setInputText("they really ghosted me like I'm casper...");
     toast({
-      title: "👻 Ghost Buster Deployed!",
+      title: "👻 Hunter Deployed!",
       description: "Anti-ghosting protocol activated - scanning for signs of life",
     });
   };
 
-  const toggleSirenMode = () => {
+  const toggleBlitz = () => {
     setIsSirenModeActive(!isSirenModeActive);
     toast({
-      title: isSirenModeActive ? "🚨 Siren Mode Deactivated" : "🚨 Siren Mode ACTIVE!",
+      title: isSirenModeActive ? "⚡ Blitz Mode Deactivated" : "⚡ Blitz Mode ACTIVE!",
       description: isSirenModeActive ? "Emergency services offline" : "Say 'emergency meme' for instant backup",
     });
   };
@@ -151,7 +151,7 @@ const Index = () => {
             <span className="text-4xl animate-spin">🌀</span>
             <Sparkles className="h-8 w-8 text-yellow-400 animate-pulse" />
             <h1 className="text-5xl md:text-7xl font-black mb-2 bg-gradient-to-r from-pink-400 via-purple-400 to-cyan-400 bg-clip-text text-transparent animate-pulse">
-              Vibe Check Emergency HQ
+              VibeShield Emergency HQ
             </h1>
             <Zap className="h-8 w-8 text-yellow-400 animate-pulse" />
             <span className="text-4xl animate-spin">✨</span>
@@ -185,14 +185,12 @@ const Index = () => {
           </Badge>
         </div>
 
-        {/* Only show notifications when features are active - remove the automatic notification feed */}
-        
         {/* Main Input Area */}
         <Card className="bg-black/30 border-purple-500/30 backdrop-blur-lg max-w-2xl mx-auto mb-8 shadow-2xl">
           <CardHeader>
             <CardTitle className="text-white flex items-center gap-2">
               <MessageSquare className="h-5 w-5 text-purple-400" />
-              spill the digital tea bestie ☕
+              spill the digital tea buddy ☕
             </CardTitle>
           </CardHeader>
           <CardContent className="space-y-4">
@@ -205,27 +203,27 @@ const Index = () => {
             
             <div className="flex gap-2 flex-wrap">
               <Button
-                onClick={simulateScreenYoinker}
+                onClick={simulateSnatcher}
                 size="sm"
                 className="bg-purple-600 hover:bg-purple-700"
               >
-                📸 screen yeet
+                📸 snatch it
               </Button>
               <Button
-                onClick={toggleSirenMode}
+                onClick={toggleBlitz}
                 size="sm"
                 variant="outline"
                 className={`border-red-500/50 ${isSirenModeActive ? 'bg-red-600/20 animate-pulse' : ''}`}
               >
-                🚨 {isSirenModeActive ? 'chill mode' : 'emergency hotline'}
+                ⚡ {isSirenModeActive ? 'chill mode' : 'blitz mode'}
               </Button>
               <Button
-                onClick={simulateGhostBuster}
+                onClick={simulateHunter}
                 size="sm"
                 variant="outline"
                 className="border-blue-500/50"
               >
-                👻 ghost check
+                👻 ghost hunt
               </Button>
             </div>
             
@@ -259,25 +257,25 @@ const Index = () => {
         <div className="grid md:grid-cols-2 gap-6 mt-12">
           <Card 
             className="bg-gradient-to-br from-red-900/50 to-pink-900/50 border-red-400/50 backdrop-blur-sm cursor-pointer hover:scale-105 transition-all duration-300 group"
-            onClick={toggleSirenMode}
+            onClick={toggleBlitz}
           >
             <CardContent className="p-6 text-center">
-              <div className="text-4xl mb-3 group-hover:animate-bounce">🚨</div>
-              <h3 className="font-bold text-white mb-2 text-lg">Siren Mode</h3>
+              <div className="text-4xl mb-3 group-hover:animate-bounce">⚡</div>
+              <h3 className="font-bold text-white mb-2 text-lg">Blitz</h3>
               <p className="text-sm text-gray-300 mb-3">voice-activated emergency meme deployment</p>
               <Badge className={`${isSirenModeActive ? 'bg-red-500/20 text-red-300 border-red-400/50 animate-pulse' : 'bg-gray-500/20 text-gray-300 border-gray-400/50'}`}>
-                {isSirenModeActive ? '🚨 CODE RED ACTIVE' : '🔇 tap to activate'}
+                {isSirenModeActive ? '⚡ BLITZ ACTIVE' : '🔇 tap to activate'}
               </Badge>
             </CardContent>
           </Card>
 
           <Card 
             className="bg-gradient-to-br from-purple-900/50 to-blue-900/50 border-purple-400/50 backdrop-blur-sm cursor-pointer hover:scale-105 transition-all duration-300 group"
-            onClick={simulateScreenYoinker}
+            onClick={simulateSnatcher}
           >
             <CardContent className="p-6 text-center">
               <div className="text-4xl mb-3 group-hover:animate-bounce">📸</div>
-              <h3 className="font-bold text-white mb-2 text-lg">Screen Yoinker</h3>
+              <h3 className="font-bold text-white mb-2 text-lg">Snatcher</h3>
               <p className="text-sm text-gray-300 mb-3">steal text from literally anywhere</p>
               <Badge className="bg-purple-500/20 text-purple-300 border-purple-400/50">
                 ⚡ fully operational
@@ -287,11 +285,11 @@ const Index = () => {
 
           <Card 
             className="bg-gradient-to-br from-blue-900/50 to-cyan-900/50 border-blue-400/50 backdrop-blur-sm cursor-pointer hover:scale-105 transition-all duration-300 group"
-            onClick={simulateGhostBuster}
+            onClick={simulateHunter}
           >
             <CardContent className="p-6 text-center">
               <div className="text-4xl mb-3 group-hover:animate-bounce">👻</div>
-              <h3 className="font-bold text-white mb-2 text-lg">Ghost Buster</h3>
+              <h3 className="font-bold text-white mb-2 text-lg">Hunter</h3>
               <p className="text-sm text-gray-300 mb-3">anti-ghosting patrol & comeback generator</p>
               <Badge className="bg-blue-500/20 text-blue-300 border-blue-400/50">
                 🟢 actively hunting ghosts
@@ -303,12 +301,12 @@ const Index = () => {
             className="bg-gradient-to-br from-yellow-900/50 to-orange-900/50 border-yellow-400/50 backdrop-blur-sm cursor-pointer hover:scale-105 transition-all duration-300 group"
             onClick={() => {
               setInputText("activating main character energy...");
-              toast({ title: "🎭 Chaos Mode Engaged!", description: "All social filters have been disabled bestie" });
+              toast({ title: "🎭 Wildcard Engaged!", description: "All social filters have been disabled buddy" });
             }}
           >
             <CardContent className="p-6 text-center">
               <div className="text-4xl mb-3 group-hover:animate-bounce">🎭</div>
-              <h3 className="font-bold text-white mb-2 text-lg">Chaos Mode</h3>
+              <h3 className="font-bold text-white mb-2 text-lg">Wildcard</h3>
               <p className="text-sm text-gray-300 mb-3">unleash your unhinged energy</p>
               <Badge className="bg-yellow-500/20 text-yellow-300 border-yellow-400/50">
                 💫 chaos ready to deploy
@@ -330,13 +328,13 @@ const Index = () => {
             built different for the chronically online generation
           </p>
           <p className="text-xs text-gray-500">
-            no cap, your digital guardian angels got your back 24/7 💫
+            no cap, your chaos control agents got your back 24/7 💫
           </p>
         </div>
       </div>
 
       {/* Enhanced Floating Action Button */}
-      <FloatingMemeButton onQuickCapture={simulateScreenYoinker} />
+      <FloatingMemeButton onQuickCapture={simulateSnatcher} />
     </div>
   );
 };

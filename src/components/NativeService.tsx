@@ -40,8 +40,8 @@ const NativeService: React.FC<NativeServiceProps> = ({ onTriggerMeme, onServiceR
   const initializeNativeFeatures = async () => {
     try {
       toast({
-        title: "🚀 Vibe Check Emergency HQ Online!",
-        description: "Your digital guardian angels are locked and loaded bestie",
+        title: "🚀 VibeShield Emergency HQ Online!",
+        description: "Your chaos control agents are locked and loaded buddy",
       });
     } catch (error) {
       console.error('Failed to initialize native features:', error);
@@ -158,7 +158,7 @@ const NativeService: React.FC<NativeServiceProps> = ({ onTriggerMeme, onServiceR
     setActiveFeatures(prev => prev.filter(f => f !== featureName));
     toast({
       title: `${featureName} Deactivated`,
-      description: "Feature stopped - reactivate anytime bestie",
+      description: "Feature stopped - reactivate anytime buddy",
     });
   };
 

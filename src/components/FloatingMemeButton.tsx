@@ -12,7 +12,7 @@ interface FloatingMemeButtonProps {
 const FloatingMemeButton: React.FC<FloatingMemeButtonProps> = ({ onQuickCapture }) => {
   const [isOpen, setIsOpen] = useState(false);
 
-  const activateScreenYoinker = () => {
+  const activateSnatcher = () => {
     // Real screen capture functionality
     if ('mediaDevices' in navigator && 'getDisplayMedia' in navigator.mediaDevices) {
       navigator.mediaDevices.getDisplayMedia({ video: true })
@@ -34,7 +34,7 @@ const FloatingMemeButton: React.FC<FloatingMemeButtonProps> = ({ onQuickCapture 
             
             // Convert to text analysis (simulate OCR)
             const mockTexts = [
-              "bestie why did you say that 💀",
+              "buddy why did you say that 💀",
               "not you sliding into my DMs at 3am",
               "sir this is a Wendy's energy",
               "the audacity is astronomical ngl"
@@ -50,7 +50,7 @@ const FloatingMemeButton: React.FC<FloatingMemeButtonProps> = ({ onQuickCapture 
             }
             
             toast({
-              title: "📸 Screen Yoinker Success!",
+              title: "📸 Snatcher Success!",
               description: "Text extracted and ready for meme analysis",
             });
           });
@@ -59,7 +59,7 @@ const FloatingMemeButton: React.FC<FloatingMemeButtonProps> = ({ onQuickCapture 
           // Fallback to simulated capture
           onQuickCapture();
           toast({
-            title: "📸 Screen Yoinker (Demo)",
+            title: "📸 Snatcher (Demo)",
             description: "Full screen capture works in the mobile app",
           });
         });
@@ -69,7 +69,7 @@ const FloatingMemeButton: React.FC<FloatingMemeButtonProps> = ({ onQuickCapture 
     setIsOpen(false);
   };
 
-  const activateSirenMode = () => {
+  const activateBlitz = () => {
     const SpeechRecognition = (window as any).webkitSpeechRecognition || (window as any).SpeechRecognition;
     if (SpeechRecognition) {
       const recognition = new SpeechRecognition();
@@ -77,7 +77,7 @@ const FloatingMemeButton: React.FC<FloatingMemeButtonProps> = ({ onQuickCapture 
       recognition.interimResults = true;
       
       toast({
-        title: "🚨 Siren Mode Active!",
+        title: "⚡ Blitz Mode Active!",
         description: "Say 'emergency meme' or 'save me' for instant help",
       });
       
@@ -99,20 +99,20 @@ const FloatingMemeButton: React.FC<FloatingMemeButtonProps> = ({ onQuickCapture 
       setTimeout(() => {
         recognition.stop();
         toast({
-          title: "🚨 Siren Mode Standby",
+          title: "⚡ Blitz Mode Standby",
           description: "Voice patrol ended - reactivate anytime",
         });
       }, 30000);
     } else {
       toast({
-        title: "🚨 Siren Mode (Limited)",
+        title: "⚡ Blitz Mode (Limited)",
         description: "Voice features work better in the mobile app",
       });
     }
     setIsOpen(false);
   };
 
-  const activateGhostBuster = () => {
+  const activateHunter = () => {
     // Enhanced smart type with background monitoring
     const textArea = document.querySelector('textarea') as HTMLTextAreaElement;
     if (textArea) {
@@ -130,7 +130,7 @@ const FloatingMemeButton: React.FC<FloatingMemeButtonProps> = ({ onQuickCapture 
       textArea.dispatchEvent(new Event('input', { bubbles: true }));
       
       toast({
-        title: "👻 Ghost Buster Activated!",
+        title: "👻 Hunter Activated!",
         description: "Analyzing ghosting patterns and generating comebacks",
       });
     }
@@ -154,7 +154,7 @@ const FloatingMemeButton: React.FC<FloatingMemeButtonProps> = ({ onQuickCapture 
         ];
         
         toast({
-          title: "👻 Ghost Buster Update",
+          title: "👻 Hunter Update",
           description: updates[Math.floor(Math.random() * updates.length)],
         });
       }
@@ -163,7 +163,7 @@ const FloatingMemeButton: React.FC<FloatingMemeButtonProps> = ({ onQuickCapture 
     setIsOpen(false);
   };
 
-  const activateChaosMode = () => {
+  const activateWildcard = () => {
     // Chaotic intervention mode
     const scenarios = [
       "plot twist: you're about to become the main character",
@@ -181,8 +181,8 @@ const FloatingMemeButton: React.FC<FloatingMemeButtonProps> = ({ onQuickCapture 
     }
     
     toast({
-      title: "🎭 Chaos Mode UNLEASHED!",
-      description: "All social filters have been disabled bestie",
+      title: "🎭 Wildcard UNLEASHED!",
+      description: "All social filters have been disabled buddy",
     });
     
     // Random chaos interventions
@@ -192,7 +192,7 @@ const FloatingMemeButton: React.FC<FloatingMemeButtonProps> = ({ onQuickCapture 
       if (chaosCount > 4) {
         clearInterval(chaosInterval);
         toast({
-          title: "🎭 Chaos Mode Complete",
+          title: "🎭 Wildcard Complete",
           description: "You've been blessed by the chaos gods",
         });
         return;
@@ -240,47 +240,47 @@ const FloatingMemeButton: React.FC<FloatingMemeButtonProps> = ({ onQuickCapture 
                 <span>⚡</span>
               </SheetTitle>
               <SheetDescription className="text-gray-300 text-base">
-                choose your digital guardian angel bestie 💫
+                choose your chaos control agent buddy 💫
               </SheetDescription>
             </SheetHeader>
             
             <div className="grid grid-cols-2 gap-4 mt-8">
               <Button
-                onClick={activateScreenYoinker}
+                onClick={activateSnatcher}
                 className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white h-24 flex flex-col items-center justify-center shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105"
               >
                 <span className="text-3xl mb-2">📸</span>
-                <span className="font-bold">screen yoinker</span>
+                <span className="font-bold">snatcher</span>
                 <span className="text-xs opacity-80">steal text from anywhere</span>
               </Button>
               
               <Button
-                onClick={activateSirenMode}
+                onClick={activateBlitz}
                 variant="outline"
                 className="border-red-500/50 text-white hover:bg-red-600/20 h-24 flex flex-col items-center justify-center hover:scale-105 transition-all duration-300"
               >
-                <span className="text-3xl mb-2">🚨</span>
-                <span className="font-bold">siren mode</span>
+                <span className="text-3xl mb-2">⚡</span>
+                <span className="font-bold">blitz</span>
                 <span className="text-xs opacity-80">voice emergency backup</span>
               </Button>
               
               <Button
-                onClick={activateGhostBuster}
+                onClick={activateHunter}
                 variant="outline"
                 className="border-blue-500/50 text-white hover:bg-blue-600/20 h-24 flex flex-col items-center justify-center hover:scale-105 transition-all duration-300"
               >
                 <span className="text-3xl mb-2">👻</span>
-                <span className="font-bold">ghost buster</span>
+                <span className="font-bold">hunter</span>
                 <span className="text-xs opacity-80">anti-ghosting patrol</span>
               </Button>
               
               <Button
-                onClick={activateChaosMode}
+                onClick={activateWildcard}
                 variant="outline"
                 className="border-yellow-500/50 text-white hover:bg-yellow-600/20 h-24 flex flex-col items-center justify-center hover:scale-105 transition-all duration-300"
               >
                 <span className="text-3xl mb-2">🎭</span>
-                <span className="font-bold">chaos mode</span>
+                <span className="font-bold">wildcard</span>
                 <span className="text-xs opacity-80">unhinged energy unleashed</span>
               </Button>
             </div>
@@ -289,7 +289,7 @@ const FloatingMemeButton: React.FC<FloatingMemeButtonProps> = ({ onQuickCapture 
               <div className="flex justify-center items-center gap-2 text-lg">
                 <span>💫</span>
                 <span className="text-sm text-gray-400 font-medium">
-                  your digital guardian angels are active 24/7
+                  your chaos control agents are active 24/7
                 </span>
                 <span>🛡️</span>
               </div>
