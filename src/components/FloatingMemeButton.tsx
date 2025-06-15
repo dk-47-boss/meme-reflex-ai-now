@@ -197,7 +197,7 @@ const FloatingMemeButton: React.FC<FloatingMemeButtonProps> = ({ onQuickCapture,
           <SheetTrigger asChild>
             <Button
               size="icon"
-              className="h-16 w-16 rounded-full bg-gradient-to-br from-primary via-green-500 to-green-600 hover:from-primary/90 hover:via-green-500/90 hover:to-green-600/90 shadow-2xl hover:shadow-primary/25 transition-all duration-300 hover:scale-110 animate-pulse"
+              className="h-16 w-16 rounded-full bg-gradient-to-br from-primary via-secondary to-accent hover:from-primary/90 hover:via-secondary/90 hover:to-accent/90 shadow-2xl hover:shadow-primary/25 transition-all duration-300 hover:scale-110 animate-pulse"
             >
               <div className="flex flex-col items-center">
                 <Sparkles className="h-6 w-6 text-primary-foreground" />
@@ -221,7 +221,7 @@ const FloatingMemeButton: React.FC<FloatingMemeButtonProps> = ({ onQuickCapture,
             <div className="grid grid-cols-2 gap-4 mt-8">
               <Button
                 onClick={activateSnatcher}
-                className="bg-gradient-to-r from-primary to-green-500 hover:from-primary/90 hover:to-green-500/90 text-primary-foreground h-24 flex flex-col items-center justify-center shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105"
+                className="bg-gradient-to-r from-primary to-secondary hover:from-primary/90 hover:to-secondary/90 text-primary-foreground h-24 flex flex-col items-center justify-center shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105"
               >
                 <span className="text-3xl mb-2">📸</span>
                 <span className="font-bold">snatcher</span>

@@ -181,7 +181,7 @@ const Index = () => {
           <div className="flex items-center justify-center gap-3 mb-4">
             <span className="text-4xl animate-spin">🌀</span>
             <Sparkles className="h-8 w-8 text-primary animate-pulse" />
-            <h1 className="text-5xl md:text-7xl font-black mb-2 bg-gradient-to-r from-primary to-green-400 bg-clip-text text-transparent animate-pulse font-chakra">
+            <h1 className="text-5xl md:text-7xl font-black mb-2 bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent animate-pulse font-chakra">
               MemeVault
             </h1>
             <Zap className="h-8 w-8 text-primary animate-pulse" />
