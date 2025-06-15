@@ -55,8 +55,8 @@
     --foreground: 210 40% 98%;
     --card: 225 50% 14%;
     --primary: 217 91% 60%; /* Electric Blue */
-    --secondary: 330 100% 55%; /* Hot Pink */
-    --accent: 330 100% 55%;
+    --secondary: 90 100% 50%; /* Lime Green */
+    --accent: 90 100% 50%;
     --border: 220 50% 25%;
     --ring: 217 91% 60%;
   }
@@ -66,10 +66,10 @@
     --foreground: 180 95% 85%; /* Lighter teal text */
     --card: 260 60% 13%;
     --primary: 260 100% 65%; /* Purple */
-    --secondary: 180 95% 45%; /* Teal */
-    --accent: 180 95% 45%;
+    --secondary: 75 90% 55%; /* Chartreuse */
+    --accent: 75 90% 55%;
     --border: 260 50% 25%;
-    --ring: 180 95% 45%;
+    --ring: 260 100% 65%;
   }
 
   .dark[data-theme="sunset-vibes"] {
@@ -77,8 +77,8 @@
     --foreground: 30 80% 90%;
     --card: 25 30% 14%;
     --primary: 25 95% 55%; /* Orange */
-    --secondary: 280 90% 60%; /* Purple */
-    --accent: 280 90% 60%;
+    --secondary: 0 80% 60%; /* Deep Red */
+    --accent: 0 80% 60%;
     --border: 30 50% 25%;
     --ring: 25 95% 55%;
   }
@@ -88,8 +88,8 @@
     --foreground: 150 100% 90%;
     --card: 150 40% 13%;
     --primary: 150 100% 50%; /* Bright Green */
-    --secondary: 270 90% 65%; /* Purple */
-    --accent: 270 90% 65%;
+    --secondary: 195 100% 70%; /* Icy Blue */
+    --accent: 195 100% 70%;
     --border: 150 50% 25%;
     --ring: 150 100% 50%;
   }
@@ -98,11 +98,11 @@
     --background: 320 50% 8%; /* Dark magenta bg */
     --foreground: 50 100% 90%; /* Light yellow text */
     --card: 320 50% 14%;
-    --primary: 320 100% 55%; /* Hot Magenta/Pink */
+    --primary: 310 100% 55%; /* Shifted Magenta */
     --secondary: 50 100% 50%; /* Yellow */
     --accent: 50 100% 50%;
     --border: 320 50% 25%;
-    --ring: 50 100% 50%;
+    --ring: 310 100% 55%;
   }
 }
 
