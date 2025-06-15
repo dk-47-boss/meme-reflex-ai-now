@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
@@ -196,23 +197,23 @@ const FloatingMemeButton: React.FC<FloatingMemeButtonProps> = ({ onQuickCapture,
           <SheetTrigger asChild>
             <Button
               size="icon"
-              className="h-16 w-16 rounded-full bg-gradient-to-br from-purple-600 via-pink-600 to-blue-600 hover:from-purple-700 hover:via-pink-700 hover:to-blue-700 shadow-2xl hover:shadow-purple-500/25 transition-all duration-300 hover:scale-110 animate-pulse"
+              className="h-16 w-16 rounded-full bg-gradient-to-br from-primary via-green-500 to-green-600 hover:from-primary/90 hover:via-green-500/90 hover:to-green-600/90 shadow-2xl hover:shadow-primary/25 transition-all duration-300 hover:scale-110 animate-pulse"
             >
               <div className="flex flex-col items-center">
-                <Sparkles className="h-6 w-6 text-white" />
-                <span className="text-xs font-bold text-white mt-0.5">SOS</span>
+                <Sparkles className="h-6 w-6 text-primary-foreground" />
+                <span className="text-xs font-bold text-primary-foreground mt-0.5">SOS</span>
               </div>
             </Button>
           </SheetTrigger>
           
-          <SheetContent side="bottom" className="bg-gradient-to-br from-black/95 via-purple-900/95 to-pink-900/95 border-purple-500/30 text-white backdrop-blur-lg">
+          <SheetContent side="bottom" className="bg-gradient-to-br from-background/95 via-secondary/95 to-accent/95 border-primary/30 text-foreground backdrop-blur-lg">
             <SheetHeader>
-              <SheetTitle className="text-white text-xl font-black flex items-center gap-2 font-chakra">
+              <SheetTitle className="text-foreground text-xl font-black flex items-center gap-2 font-chakra">
                 <span>🆘</span>
                 meme emergency services
                 <span>⚡</span>
               </SheetTitle>
-              <SheetDescription className="text-gray-300 text-base">
+              <SheetDescription className="text-muted-foreground text-base">
                 choose your chaos control agent buddy 💫
               </SheetDescription>
             </SheetHeader>
@@ -220,7 +221,7 @@ const FloatingMemeButton: React.FC<FloatingMemeButtonProps> = ({ onQuickCapture,
             <div className="grid grid-cols-2 gap-4 mt-8">
               <Button
                 onClick={activateSnatcher}
-                className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white h-24 flex flex-col items-center justify-center shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105"
+                className="bg-gradient-to-r from-primary to-green-500 hover:from-primary/90 hover:to-green-500/90 text-primary-foreground h-24 flex flex-col items-center justify-center shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105"
               >
                 <span className="text-3xl mb-2">📸</span>
                 <span className="font-bold">snatcher</span>
@@ -230,7 +231,7 @@ const FloatingMemeButton: React.FC<FloatingMemeButtonProps> = ({ onQuickCapture,
               <Button
                 onClick={activateVoiceWave}
                 variant="outline"
-                className={`border-red-500/50 text-white h-24 flex flex-col items-center justify-center hover:scale-105 transition-all duration-300 ${isVoiceModeActive ? 'bg-red-600/40 animate-pulse' : 'hover:bg-red-600/20'}`}
+                className={`border-destructive/50 text-foreground h-24 flex flex-col items-center justify-center hover:scale-105 transition-all duration-300 ${isVoiceModeActive ? 'bg-destructive/40 animate-pulse' : 'hover:bg-destructive/20'}`}
               >
                 <span className="text-3xl mb-2">🎤</span>
                 <span className="font-bold">voicewave</span>
@@ -240,7 +241,7 @@ const FloatingMemeButton: React.FC<FloatingMemeButtonProps> = ({ onQuickCapture,
               <Button
                 onClick={activateHunter}
                 variant="outline"
-                className="border-blue-500/50 text-white hover:bg-blue-600/20 h-24 flex flex-col items-center justify-center hover:scale-105 transition-all duration-300"
+                className="border-primary/50 text-foreground hover:bg-primary/20 h-24 flex flex-col items-center justify-center hover:scale-105 transition-all duration-300"
               >
                 <span className="text-3xl mb-2">👻</span>
                 <span className="font-bold">hunter</span>
@@ -250,7 +251,7 @@ const FloatingMemeButton: React.FC<FloatingMemeButtonProps> = ({ onQuickCapture,
               <Button
                 onClick={activateWildcard}
                 variant="outline"
-                className="border-yellow-500/50 text-white hover:bg-yellow-600/20 h-24 flex flex-col items-center justify-center hover:scale-105 transition-all duration-300"
+                className="border-primary/50 text-foreground hover:bg-primary/20 h-24 flex flex-col items-center justify-center hover:scale-105 transition-all duration-300"
               >
                 <span className="text-3xl mb-2">🎭</span>
                 <span className="font-bold">wildcard</span>
@@ -261,12 +262,12 @@ const FloatingMemeButton: React.FC<FloatingMemeButtonProps> = ({ onQuickCapture,
             <div className="mt-6 text-center space-y-2">
               <div className="flex justify-center items-center gap-2 text-lg">
                 <span>💫</span>
-                <span className="text-sm text-gray-400 font-medium">
+                <span className="text-sm text-muted-foreground font-medium">
                   your chaos control agents are active 24/7
                 </span>
                 <span>🛡️</span>
               </div>
-              <p className="text-xs text-gray-500">
+              <p className="text-xs text-muted-foreground/70">
                 these features run in background and activate when you need them most
               </p>
             </div>
