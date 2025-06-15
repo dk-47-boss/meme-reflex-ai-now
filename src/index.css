@@ -27,26 +27,62 @@
     --radius: 0.5rem;
   }
 
-  .dark {
+  .dark,
+  .dark[data-theme="synthwave"] { /* Default Theme: Synthwave */
     --background: 222 89% 6%;
     --foreground: 210 40% 98%;
     --card: 265 60% 12%;
     --card-foreground: 210 40% 98%;
     --popover: 265 60% 12%;
     --popover-foreground: 210 40% 98%;
-    --primary: 320 100% 55%;
+    --primary: 320 100% 55%; /* Hot Pink */
     --primary-foreground: 210 40% 98%;
-    --secondary: 180 100% 50%;
+    --secondary: 180 100% 50%; /* Cyan */
     --secondary-foreground: 222 89% 6%;
     --muted: 265 60% 20%;
     --muted-foreground: 215.4 16.3% 56.9%;
-    --accent: 180 100% 50%;
+    --accent: 180 100% 50%; /* Cyan */
     --accent-foreground: 222 89% 6%;
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 210 40% 98%;
     --border: 265 60% 25%;
     --input: 265 60% 20%;
     --ring: 320 100% 55%;
+  }
+
+  .dark[data-theme="retro-neon-arcade"] {
+    --primary: 217 91% 60%; /* Electric Blue */
+    --secondary: 330 100% 55%; /* Hot Pink */
+    --accent: 330 100% 55%;
+    --border: 220 50% 25%;
+  }
+
+  .dark[data-theme="cyberpunk-vaporwave"] {
+    --primary: 260 100% 65%; /* Purple */
+    --secondary: 180 95% 45%; /* Teal */
+    --accent: 180 95% 45%;
+    --border: 260 50% 25%;
+  }
+
+  .dark[data-theme="sunset-vibes"] {
+    --primary: 25 95% 55%; /* Orange */
+    --secondary: 280 90% 60%; /* Purple */
+    --accent: 280 90% 60%;
+    --border: 30 50% 25%;
+  }
+  
+  .dark[data-theme="electric-mint"] {
+    --primary: 150 100% 50%; /* Bright Green */
+    --secondary: 270 90% 65%; /* Purple */
+    --accent: 270 90% 65%;
+    --border: 150 50% 25%;
+  }
+
+  .dark[data-theme="hot-magenta-chaos"] {
+    --primary: 320 100% 55%; /* Hot Magenta/Pink */
+    --secondary: 50 100% 50%; /* Yellow */
+    --accent: 50 100% 50%;
+    --border: 320 50% 25%;
   }
 }
 

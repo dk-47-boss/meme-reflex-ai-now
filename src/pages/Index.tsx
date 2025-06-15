@@ -9,6 +9,7 @@ import MemeVibeClassifier from "@/components/MemeVibeClassifier";
 import FloatingMemeButton from "@/components/FloatingMemeButton";
 import MemeDisplay from "@/components/MemeDisplay";
 import NativeService from "@/components/NativeService";
+import ThemeSwitcher from "@/components/ThemeSwitcher";
 
 const Index = () => {
   const [inputText, setInputText] = useState('');
@@ -17,6 +18,11 @@ const Index = () => {
   const [isAnalyzing, setIsAnalyzing] = useState(false);
   const [isVoiceModeActive, setIsVoiceModeActive] = useState(false);
   const [notifications, setNotifications] = useState<string[]>([]);
+  const [currentTheme, setCurrentTheme] = useState('synthwave');
+
+  useEffect(() => {
+    document.documentElement.setAttribute('data-theme', currentTheme);
+  }, [currentTheme]);
 
   // Enhanced voice recognition with background monitoring
   useEffect(() => {
@@ -190,6 +196,9 @@ const Index = () => {
             <span className="inline-block w-2 h-2 bg-primary/70 rounded-full animate-pulse"></span>
           </p>
         </div>
+
+        {/* Theme Switcher */}
+        <ThemeSwitcher setTheme={setCurrentTheme} currentTheme={currentTheme} />
 
         {/* Controlled Status Bar */}
         <div className="flex justify-center gap-4 mb-6 flex-wrap">
