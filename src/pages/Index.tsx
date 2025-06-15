@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -162,15 +163,15 @@ const Index = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-indigo-900 via-purple-900 to-pink-900 text-white overflow-x-hidden">
+    <div className="min-h-screen bg-gray-900 text-white overflow-x-hidden">
       {/* Native Service Integration */}
       <NativeService onTriggerMeme={simulateVoiceTrigger} />
       
       {/* Enhanced Animated Background */}
       <div className="fixed inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-purple-500/10 rounded-full blur-3xl animate-pulse"></div>
-        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-pink-500/10 rounded-full blur-3xl animate-pulse delay-1000"></div>
-        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-80 h-80 bg-blue-500/10 rounded-full blur-3xl animate-pulse delay-500"></div>
+        <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-fuchsia-500/20 rounded-full blur-3xl animate-pulse"></div>
+        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-cyan-500/20 rounded-full blur-3xl animate-pulse delay-1000"></div>
+        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-80 h-80 bg-lime-500/10 rounded-full blur-3xl animate-pulse delay-500"></div>
         {/* New funky elements */}
         <div className="absolute top-10 right-10 w-32 h-32 bg-yellow-500/10 rounded-full blur-2xl animate-bounce"></div>
         <div className="absolute bottom-10 left-10 w-48 h-48 bg-green-500/10 rounded-full blur-2xl animate-bounce delay-700"></div>
@@ -182,7 +183,7 @@ const Index = () => {
           <div className="flex items-center justify-center gap-3 mb-4">
             <span className="text-4xl animate-spin">🌀</span>
             <Sparkles className="h-8 w-8 text-yellow-400 animate-pulse" />
-            <h1 className="text-5xl md:text-7xl font-black mb-2 bg-gradient-to-r from-pink-400 via-purple-400 to-cyan-400 bg-clip-text text-transparent animate-pulse">
+            <h1 className="text-5xl md:text-7xl font-black mb-2 bg-gradient-to-r from-pink-400 via-purple-400 to-cyan-400 bg-clip-text text-transparent animate-pulse font-chakra">
               MemeVault
             </h1>
             <Zap className="h-8 w-8 text-yellow-400 animate-pulse" />
@@ -220,12 +221,13 @@ const Index = () => {
         {/* Updated Feature Demo Cards - Made Smaller */}
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
           <Card 
-            className="bg-gradient-to-br from-red-900/50 to-pink-900/50 border-red-400/50 backdrop-blur-sm cursor-pointer hover:scale-105 transition-all duration-300 group"
+            className="bg-gradient-to-br from-red-900/50 to-pink-900/50 border-red-400/50 backdrop-blur-sm cursor-pointer hover:scale-105 transition-all duration-300 group animate-float"
             onClick={toggleVoiceMode}
+            style={{ animationDelay: '0s' }}
           >
             <CardContent className="p-4 text-center">
               <div className="text-3xl mb-2 group-hover:animate-bounce">🎤</div>
-              <h3 className="font-bold text-white mb-1 text-sm">VoiceWave</h3>
+              <h3 className="font-bold text-white mb-1 text-sm font-chakra">VoiceWave</h3>
               <p className="text-xs text-gray-300 mb-2">voice-activated emergency meme deployment</p>
               <Badge className={`text-xs ${isVoiceModeActive ? 'bg-red-500/20 text-red-300 border-red-400/50 animate-pulse' : 'bg-gray-500/20 text-gray-300 border-gray-400/50'}`}>
                 {isVoiceModeActive ? '🎤 ACTIVE' : '🔇 tap'}
@@ -234,12 +236,13 @@ const Index = () => {
           </Card>
 
           <Card 
-            className="bg-gradient-to-br from-purple-900/50 to-blue-900/50 border-purple-400/50 backdrop-blur-sm cursor-pointer hover:scale-105 transition-all duration-300 group"
+            className="bg-gradient-to-br from-purple-900/50 to-blue-900/50 border-purple-400/50 backdrop-blur-sm cursor-pointer hover:scale-105 transition-all duration-300 group animate-float"
             onClick={simulateSnatcher}
+            style={{ animationDelay: '1s' }}
           >
             <CardContent className="p-4 text-center">
               <div className="text-3xl mb-2 group-hover:animate-bounce">📸</div>
-              <h3 className="font-bold text-white mb-1 text-sm">Snatcher</h3>
+              <h3 className="font-bold text-white mb-1 text-sm font-chakra">Snatcher</h3>
               <p className="text-xs text-gray-300 mb-2">steal text from literally anywhere</p>
               <Badge className="text-xs bg-purple-500/20 text-purple-300 border-purple-400/50">
                 ⚡ operational
@@ -248,12 +251,13 @@ const Index = () => {
           </Card>
 
           <Card 
-            className="bg-gradient-to-br from-blue-900/50 to-cyan-900/50 border-blue-400/50 backdrop-blur-sm cursor-pointer hover:scale-105 transition-all duration-300 group"
+            className="bg-gradient-to-br from-blue-900/50 to-cyan-900/50 border-blue-400/50 backdrop-blur-sm cursor-pointer hover:scale-105 transition-all duration-300 group animate-float"
             onClick={simulateHunter}
+            style={{ animationDelay: '2s' }}
           >
             <CardContent className="p-4 text-center">
               <div className="text-3xl mb-2 group-hover:animate-bounce">👻</div>
-              <h3 className="font-bold text-white mb-1 text-sm">Hunter</h3>
+              <h3 className="font-bold text-white mb-1 text-sm font-chakra">Hunter</h3>
               <p className="text-xs text-gray-300 mb-2">anti-ghosting patrol & comeback generator</p>
               <Badge className="text-xs bg-blue-500/20 text-blue-300 border-blue-400/50">
                 🟢 hunting ghosts
@@ -262,12 +266,13 @@ const Index = () => {
           </Card>
 
           <Card 
-            className="bg-gradient-to-br from-yellow-900/50 to-orange-900/50 border-yellow-400/50 backdrop-blur-sm cursor-pointer hover:scale-105 transition-all duration-300 group"
+            className="bg-gradient-to-br from-yellow-900/50 to-orange-900/50 border-yellow-400/50 backdrop-blur-sm cursor-pointer hover:scale-105 transition-all duration-300 group animate-float"
             onClick={simulateWildcard}
+            style={{ animationDelay: '0.5s' }}
           >
             <CardContent className="p-4 text-center">
               <div className="text-3xl mb-2 group-hover:animate-bounce">🎭</div>
-              <h3 className="font-bold text-white mb-1 text-sm">Wildcard</h3>
+              <h3 className="font-bold text-white mb-1 text-sm font-chakra">Wildcard</h3>
               <p className="text-xs text-gray-300 mb-2">unleash your unhinged energy</p>
               <Badge className="text-xs bg-yellow-500/20 text-yellow-300 border-yellow-400/50">
                 💫 chaos ready
@@ -287,9 +292,9 @@ const Index = () => {
         {/* Main Input Area - Now at Bottom */}
         <Card className="bg-black/30 border-purple-500/30 backdrop-blur-lg max-w-2xl mx-auto mt-8 mb-8 shadow-2xl">
           <CardHeader>
-            <CardTitle className="text-white flex items-center gap-2">
+            <CardTitle className="text-white flex items-center gap-2 font-chakra">
               <MessageSquare className="h-5 w-5 text-purple-400" />
-              spill the digital buddy ☕
+              spill the digital tea ☕
             </CardTitle>
           </CardHeader>
           <CardContent className="space-y-4">
@@ -337,7 +342,11 @@ const Index = () => {
       </div>
 
       {/* Enhanced Floating Action Button */}
-      <FloatingMemeButton onQuickCapture={simulateSnatcher} onEmergencyMeme={simulateVoiceTrigger} />
+      <FloatingMemeButton 
+        onQuickCapture={simulateSnatcher} 
+        onToggleVoiceMode={toggleVoiceMode}
+        isVoiceModeActive={isVoiceModeActive}
+      />
     </div>
   );
 };

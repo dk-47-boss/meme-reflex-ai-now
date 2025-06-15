@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
@@ -7,10 +6,11 @@ import { toast } from "@/hooks/use-toast";
 
 interface FloatingMemeButtonProps {
   onQuickCapture: () => void;
-  onEmergencyMeme: () => void;
+  onToggleVoiceMode: () => void;
+  isVoiceModeActive: boolean;
 }
 
-const FloatingMemeButton: React.FC<FloatingMemeButtonProps> = ({ onQuickCapture, onEmergencyMeme }) => {
+const FloatingMemeButton: React.FC<FloatingMemeButtonProps> = ({ onQuickCapture, onToggleVoiceMode, isVoiceModeActive }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const autoAnalyze = () => {
@@ -79,41 +79,7 @@ const FloatingMemeButton: React.FC<FloatingMemeButtonProps> = ({ onQuickCapture,
   };
 
   const activateVoiceWave = () => {
-    const SpeechRecognition = (window as any).webkitSpeechRecognition || (window as any).SpeechRecognition;
-    if (SpeechRecognition) {
-      const recognition = new SpeechRecognition();
-      recognition.continuous = true;
-      recognition.interimResults = true;
-      
-      toast({
-        title: "🎤 VoiceWave Active!",
-        description: "Say 'emergency meme' or 'save me' for instant help",
-      });
-      
-      recognition.onresult = (event: any) => {
-        const transcript = event.results[event.results.length - 1][0].transcript.toLowerCase();
-        if (transcript.includes('emergency') || transcript.includes('save me') || transcript.includes('help')) {
-          recognition.stop();
-          onEmergencyMeme();
-        }
-      };
-      
-      recognition.start();
-      
-      // Auto-stop after 30 seconds
-      setTimeout(() => {
-        recognition.stop();
-        toast({
-          title: "🎤 VoiceWave Standby",
-          description: "Voice patrol ended - reactivate anytime",
-        });
-      }, 30000);
-    } else {
-      toast({
-        title: "🎤 VoiceWave (Limited)",
-        description: "Voice features work better in the mobile app",
-      });
-    }
+    onToggleVoiceMode();
     setIsOpen(false);
   };
 
@@ -241,7 +207,7 @@ const FloatingMemeButton: React.FC<FloatingMemeButtonProps> = ({ onQuickCapture,
           
           <SheetContent side="bottom" className="bg-gradient-to-br from-black/95 via-purple-900/95 to-pink-900/95 border-purple-500/30 text-white backdrop-blur-lg">
             <SheetHeader>
-              <SheetTitle className="text-white text-xl font-black flex items-center gap-2">
+              <SheetTitle className="text-white text-xl font-black flex items-center gap-2 font-chakra">
                 <span>🆘</span>
                 meme emergency services
                 <span>⚡</span>
@@ -264,11 +230,11 @@ const FloatingMemeButton: React.FC<FloatingMemeButtonProps> = ({ onQuickCapture,
               <Button
                 onClick={activateVoiceWave}
                 variant="outline"
-                className="border-red-500/50 text-white hover:bg-red-600/20 h-24 flex flex-col items-center justify-center hover:scale-105 transition-all duration-300"
+                className={`border-red-500/50 text-white h-24 flex flex-col items-center justify-center hover:scale-105 transition-all duration-300 ${isVoiceModeActive ? 'bg-red-600/40 animate-pulse' : 'hover:bg-red-600/20'}`}
               >
                 <span className="text-3xl mb-2">🎤</span>
                 <span className="font-bold">voicewave</span>
-                <span className="text-xs opacity-80">voice emergency backup</span>
+                <span className="text-xs opacity-80">{isVoiceModeActive ? 'LISTENING...' : 'voice emergency backup'}</span>
               </Button>
               
               <Button
