@@ -134,74 +134,70 @@ const Index = () => {
       {/* Native Service Integration */}
       <NativeService onTriggerMeme={simulateVoiceTrigger} />
       
-      {/* Animated Background Elements */}
+      {/* Enhanced Animated Background */}
       <div className="fixed inset-0 overflow-hidden pointer-events-none">
         <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-purple-500/10 rounded-full blur-3xl animate-pulse"></div>
         <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-pink-500/10 rounded-full blur-3xl animate-pulse delay-1000"></div>
         <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-80 h-80 bg-blue-500/10 rounded-full blur-3xl animate-pulse delay-500"></div>
+        {/* New funky elements */}
+        <div className="absolute top-10 right-10 w-32 h-32 bg-yellow-500/10 rounded-full blur-2xl animate-bounce"></div>
+        <div className="absolute bottom-10 left-10 w-48 h-48 bg-green-500/10 rounded-full blur-2xl animate-bounce delay-700"></div>
       </div>
 
-      {/* Header */}
+      {/* Funky Header */}
       <div className="container mx-auto px-4 py-8 relative z-10">
         <div className="text-center mb-8">
-          <div className="flex items-center justify-center gap-2 mb-4">
+          <div className="flex items-center justify-center gap-3 mb-4">
+            <span className="text-4xl animate-spin">🌀</span>
             <Sparkles className="h-8 w-8 text-yellow-400 animate-pulse" />
-            <h1 className="text-5xl md:text-7xl font-black mb-2 bg-gradient-to-r from-pink-400 via-purple-400 to-cyan-400 bg-clip-text text-transparent">
-              Meme Reflex
+            <h1 className="text-5xl md:text-7xl font-black mb-2 bg-gradient-to-r from-pink-400 via-purple-400 to-cyan-400 bg-clip-text text-transparent animate-pulse">
+              Vibe Check Emergency HQ
             </h1>
             <Zap className="h-8 w-8 text-yellow-400 animate-pulse" />
+            <span className="text-4xl animate-spin">✨</span>
           </div>
           <p className="text-xl md:text-2xl text-gray-300 mb-2 font-medium">
-            your digital guardian angels for awkward convos ✨
+            where digital chaos meets tactical meme deployment 🎭
           </p>
           <p className="text-sm text-gray-400 flex items-center justify-center gap-2">
             <span className="inline-block w-2 h-2 bg-green-400 rounded-full animate-pulse"></span>
-            emergency meme deployment in under 3 seconds fr fr
+            emergency vibes delivered in under 2.5 seconds no cap
+            <span className="inline-block w-2 h-2 bg-pink-400 rounded-full animate-pulse"></span>
           </p>
         </div>
 
-        {/* Enhanced Live Status Bar */}
+        {/* Controlled Status Bar */}
         <div className="flex justify-center gap-4 mb-6 flex-wrap">
           <Badge className={`${isSirenModeActive ? 'bg-red-500 animate-pulse' : 'bg-gray-500'} text-white`}>
             <Mic className="h-3 w-3 mr-1" />
-            siren mode {isSirenModeActive ? 'ACTIVE' : 'standby'}
+            emergency hotline {isSirenModeActive ? 'LIVE' : 'standby'}
           </Badge>
-          <Badge className="bg-purple-500 text-white animate-pulse">
+          <Badge className="bg-purple-500 text-white">
             <Radar className="h-3 w-3 mr-1" />
-            vibe watchdog sniffing
+            vibes: immaculate
           </Badge>
-          <Badge className="bg-blue-500 text-white">
+          <Badge className="bg-blue-500 text-white animate-pulse">
             <Keyboard className="h-3 w-3 mr-1" />
-            chaos mode ready
+            chaos: controlled
           </Badge>
           <Badge className="bg-pink-500 text-white">
-            👻 ghost buster patrol
+            👻 ghost patrol: active
           </Badge>
         </div>
 
-        {/* Enhanced Notification Feed */}
-        {notifications.length > 0 && (
-          <div className="max-w-md mx-auto mb-6">
-            <h3 className="text-sm text-gray-400 mb-2">🛡️ digital guardian alerts:</h3>
-            {notifications.map((notif, index) => (
-              <div key={index} className="bg-black/30 border border-purple-500/30 rounded-lg p-3 mb-2 text-sm animate-pulse">
-                {notif}
-              </div>
-            ))}
-          </div>
-        )}
-
+        {/* Only show notifications when features are active - remove the automatic notification feed */}
+        
         {/* Main Input Area */}
         <Card className="bg-black/30 border-purple-500/30 backdrop-blur-lg max-w-2xl mx-auto mb-8 shadow-2xl">
           <CardHeader>
             <CardTitle className="text-white flex items-center gap-2">
               <MessageSquare className="h-5 w-5 text-purple-400" />
-              drop your digital drama bestie
+              spill the digital tea bestie ☕
             </CardTitle>
           </CardHeader>
           <CardContent className="space-y-4">
             <Textarea
-              placeholder="paste that unhinged convo or tell me what chaos is happening..."
+              placeholder="drop that unhinged convo or tell me what main character moment is happening..."
               value={inputText}
               onChange={(e) => setInputText(e.target.value)}
               className="bg-white/10 border-purple-500/30 text-white placeholder:text-gray-400 min-h-[120px] text-lg"
@@ -213,7 +209,7 @@ const Index = () => {
                 size="sm"
                 className="bg-purple-600 hover:bg-purple-700"
               >
-                📸 screen yoinker
+                📸 screen yeet
               </Button>
               <Button
                 onClick={toggleSirenMode}
@@ -221,7 +217,7 @@ const Index = () => {
                 variant="outline"
                 className={`border-red-500/50 ${isSirenModeActive ? 'bg-red-600/20 animate-pulse' : ''}`}
               >
-                🚨 {isSirenModeActive ? 'deactivate siren' : 'siren mode'}
+                🚨 {isSirenModeActive ? 'chill mode' : 'emergency hotline'}
               </Button>
               <Button
                 onClick={simulateGhostBuster}
@@ -229,7 +225,7 @@ const Index = () => {
                 variant="outline"
                 className="border-blue-500/50"
               >
-                👻 ghost buster
+                👻 ghost check
               </Button>
             </div>
             
@@ -242,7 +238,7 @@ const Index = () => {
 
             {detectedVibe && (
               <div className="flex items-center gap-2 flex-wrap">
-                <span className="text-sm text-gray-300">vibe successfully yoinked:</span>
+                <span className="text-sm text-gray-300">vibe successfully captured:</span>
                 <Badge variant="secondary" className="bg-gradient-to-r from-purple-600 to-pink-600 text-white border-none">
                   {detectedVibe} energy locked and loaded 🔥
                 </Badge>
