@@ -169,7 +169,7 @@ const Index = () => {
             <span className="text-4xl animate-spin">🌀</span>
             <Sparkles className="h-8 w-8 text-yellow-400 animate-pulse" />
             <h1 className="text-5xl md:text-7xl font-black mb-2 bg-gradient-to-r from-pink-400 via-purple-400 to-cyan-400 bg-clip-text text-transparent animate-pulse">
-              MemeVault Pro
+              MemeVault
             </h1>
             <Zap className="h-8 w-8 text-yellow-400 animate-pulse" />
             <span className="text-4xl animate-spin">✨</span>
@@ -202,75 +202,6 @@ const Index = () => {
             👻 ghost patrol: active
           </Badge>
         </div>
-
-        {/* 4 Quick Action Features */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8 max-w-4xl mx-auto">
-          <Button
-            onClick={simulateSnatcher}
-            className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white h-20 flex flex-col items-center justify-center shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105"
-          >
-            <span className="text-2xl mb-1">📸</span>
-            <span className="font-bold text-sm">snatcher</span>
-          </Button>
-          
-          <Button
-            onClick={toggleVoiceMode}
-            className={`${isVoiceModeActive ? 'bg-gradient-to-r from-red-600 to-orange-600 animate-pulse' : 'bg-gradient-to-r from-blue-600 to-cyan-600'} hover:scale-105 text-white h-20 flex flex-col items-center justify-center shadow-lg hover:shadow-xl transition-all duration-300`}
-          >
-            <span className="text-2xl mb-1">🎤</span>
-            <span className="font-bold text-sm">voicewave</span>
-          </Button>
-          
-          <Button
-            onClick={simulateHunter}
-            className="bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white h-20 flex flex-col items-center justify-center shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105"
-          >
-            <span className="text-2xl mb-1">👻</span>
-            <span className="font-bold text-sm">hunter</span>
-          </Button>
-          
-          <Button
-            onClick={simulateWildcard}
-            className="bg-gradient-to-r from-yellow-600 to-orange-600 hover:from-yellow-700 hover:to-orange-700 text-white h-20 flex flex-col items-center justify-center shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105"
-          >
-            <span className="text-2xl mb-1">🎭</span>
-            <span className="font-bold text-sm">wildcard</span>
-          </Button>
-        </div>
-
-        {/* Main Input Area */}
-        <Card className="bg-black/30 border-purple-500/30 backdrop-blur-lg max-w-2xl mx-auto mb-8 shadow-2xl">
-          <CardHeader>
-            <CardTitle className="text-white flex items-center gap-2">
-              <MessageSquare className="h-5 w-5 text-purple-400" />
-              spill the digital tea buddy ☕
-            </CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-4">
-            <Textarea
-              placeholder="drop that unhinged convo or tell me what main character moment is happening..."
-              value={inputText}
-              onChange={(e) => setInputText(e.target.value)}
-              className="bg-white/10 border-purple-500/30 text-white placeholder:text-gray-400 min-h-[120px] text-lg"
-            />
-            
-            <MemeVibeClassifier
-              inputText={inputText}
-              onVibeDetected={handleVibeDetection}
-              isAnalyzing={isAnalyzing}
-              setIsAnalyzing={setIsAnalyzing}
-            />
-
-            {detectedVibe && (
-              <div className="flex items-center gap-2 flex-wrap">
-                <span className="text-sm text-gray-300">vibe successfully captured:</span>
-                <Badge variant="secondary" className="bg-gradient-to-r from-purple-600 to-pink-600 text-white border-none">
-                  {detectedVibe} energy locked and loaded 🔥
-                </Badge>
-              </div>
-            )}
-          </CardContent>
-        </Card>
 
         {/* Meme Results */}
         {suggestedMemes.length > 0 && (
@@ -338,6 +269,40 @@ const Index = () => {
             </CardContent>
           </Card>
         </div>
+
+        {/* Main Input Area - Now at Bottom */}
+        <Card className="bg-black/30 border-purple-500/30 backdrop-blur-lg max-w-2xl mx-auto mt-8 mb-8 shadow-2xl">
+          <CardHeader>
+            <CardTitle className="text-white flex items-center gap-2">
+              <MessageSquare className="h-5 w-5 text-purple-400" />
+              spill the digital tea buddy ☕
+            </CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            <Textarea
+              placeholder="drop that unhinged convo or tell me what main character moment is happening..."
+              value={inputText}
+              onChange={(e) => setInputText(e.target.value)}
+              className="bg-white/10 border-purple-500/30 text-white placeholder:text-gray-400 min-h-[120px] text-lg"
+            />
+            
+            <MemeVibeClassifier
+              inputText={inputText}
+              onVibeDetected={handleVibeDetection}
+              isAnalyzing={isAnalyzing}
+              setIsAnalyzing={setIsAnalyzing}
+            />
+
+            {detectedVibe && (
+              <div className="flex items-center gap-2 flex-wrap">
+                <span className="text-sm text-gray-300">vibe successfully captured:</span>
+                <Badge variant="secondary" className="bg-gradient-to-r from-purple-600 to-pink-600 text-white border-none">
+                  {detectedVibe} energy locked and loaded 🔥
+                </Badge>
+              </div>
+            )}
+          </CardContent>
+        </Card>
 
         {/* Gen Z Footer */}
         <div className="text-center mt-12 space-y-4">
