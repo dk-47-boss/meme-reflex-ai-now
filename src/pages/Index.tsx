@@ -1,17 +1,17 @@
-
 import React, { useState, useEffect } from 'react';
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Textarea } from "@/components/ui/textarea";
-import { Badge } from "@/components/ui/badge";
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
-import { Brush, Paintbrush, MessageSquare, Zap, Sparkles, Mic, Keyboard, Radar } from "lucide-react";
+import { Brush, Paintbrush } from "lucide-react";
 import { toast } from "@/hooks/use-toast";
-import MemeVibeClassifier from "@/components/MemeVibeClassifier";
 import FloatingMemeButton from "@/components/FloatingMemeButton";
 import MemeDisplay from "@/components/MemeDisplay";
 import NativeService from "@/components/NativeService";
 import ThemeSwitcher from "@/components/ThemeSwitcher";
+import Header from '@/components/home/Header';
+import StatusBar from '@/components/home/StatusBar';
+import FeatureCards from '@/components/home/FeatureCards';
+import MainInput from '@/components/home/MainInput';
+import Footer from '@/components/home/Footer';
 
 const themeConfig = {
   synthwave: {
@@ -115,7 +115,7 @@ const themeConfig = {
 const Index = () => {
   const [inputText, setInputText] = useState('');
   const [detectedVibe, setDetectedVibe] = useState<string | null>(null);
-  const [suggestedMemes, setSuggestedMemes] = useState([]);
+  const [suggestedMemes, setSuggestedMemes] = useState<any[]>([]);
   const [isAnalyzing, setIsAnalyzing] = useState(false);
   const [isVoiceModeActive, setIsVoiceModeActive] = useState(false);
   const [notifications, setNotifications] = useState<string[]>([]);
@@ -295,78 +295,17 @@ const Index = () => {
       {/* Native Service Integration */}
       <NativeService onTriggerMeme={simulateVoiceTrigger} />
       
-      {/* Funky Header */}
       <div className="container mx-auto px-4 py-8 relative z-10">
-        <div className="text-center mb-8">
-          <div className="flex items-center justify-center gap-3 mb-4">
-            <span className="text-4xl animate-spin" style={{ animationDuration: '3s' }}>{currentThemeConfig.headerIcons[0]}</span>
-            <span className="text-4xl animate-pulse">{currentThemeConfig.headerIcons[1]}</span>
-            <h1 
-              className="text-5xl md:text-7xl font-black mb-2 bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent animate-pulse font-chakra"
-              style={{ textShadow: "0 0 12px hsl(var(--primary) / 0.8)" }}
-            >
-              MemeVault
-            </h1>
-            <span className="text-4xl animate-pulse">{currentThemeConfig.headerIcons[2]}</span>
-            <span className="text-4xl animate-spin" style={{ animationDuration: '3.5s' }}>{currentThemeConfig.headerIcons[3]}</span>
-          </div>
-          <p className="text-xl md:text-2xl text-muted-foreground mb-2 font-medium">
-            {currentThemeConfig.description}
-          </p>
-          <p className="text-sm text-muted-foreground flex items-center justify-center gap-2">
-            <span className="inline-block w-2 h-2 bg-primary rounded-full animate-pulse"></span>
-            emergency vibes delivered in under 2.5 seconds no cap
-            <span className="inline-block w-2 h-2 bg-primary/70 rounded-full animate-pulse"></span>
-          </p>
-        </div>
+        <Header config={currentThemeConfig} />
+        
+        <StatusBar isVoiceModeActive={isVoiceModeActive} />
 
-        {/* Controlled Status Bar */}
-        <div className="flex justify-center gap-4 mb-6 flex-wrap">
-          <Badge variant={isVoiceModeActive ? 'destructive' : 'secondary'} className={`${isVoiceModeActive ? 'animate-pulse' : ''}`}>
-            <Mic className="h-3 w-3 mr-1" />
-            voicewave {isVoiceModeActive ? 'LIVE' : 'standby'}
-          </Badge>
-          <Badge variant="secondary">
-            <Radar className="h-3 w-3 mr-1" />
-            vibes: immaculate
-          </Badge>
-          <Badge variant="secondary" className="animate-pulse">
-            <Keyboard className="h-3 w-3 mr-1" />
-            chaos: controlled
-          </Badge>
-          <Badge variant="secondary">
-            👻 ghost patrol: active
-          </Badge>
-        </div>
+        <FeatureCards 
+          config={currentThemeConfig} 
+          featureHandlers={featureHandlers} 
+          isVoiceModeActive={isVoiceModeActive} 
+        />
 
-        {/* Updated Feature Demo Cards - Made Smaller */}
-        <div className={currentThemeConfig.cardLayout}>
-          {currentThemeConfig.features.map((feature, index) => (
-            <Card 
-              key={feature.name}
-              className={`bg-card/50 backdrop-blur-sm cursor-pointer hover:scale-105 transition-all duration-300 group animate-float ${currentThemeConfig.cardStyle} ${index === 0 ? 'border-destructive/50' : ''}`}
-              onClick={featureHandlers[index]}
-              style={{ animationDelay: `${index * 0.5}s` }}
-            >
-              <CardContent className="p-4 text-center">
-                <div className="text-3xl mb-2 group-hover:animate-bounce">{feature.emoji}</div>
-                <h3 className="font-bold text-foreground mb-1 text-sm font-chakra">{feature.name}</h3>
-                {currentThemeConfig.showDescription && <p className="text-xs text-muted-foreground mb-2">{feature.description}</p>}
-                {index === 0 ? (
-                  <Badge variant={isVoiceModeActive ? 'destructive' : 'secondary'} className={`${isVoiceModeActive ? 'animate-pulse' : ''}`}>
-                    {isVoiceModeActive ? `${feature.emoji} ACTIVE` : '🔇 tap'}
-                  </Badge>
-                ) : (
-                  <Badge variant="secondary">
-                    {['⚡ operational', '🟢 hunting ghosts', '💫 chaos ready'][index - 1]}
-                  </Badge>
-                )}
-              </CardContent>
-            </Card>
-          ))}
-        </div>
-
-        {/* Meme Results */}
         {suggestedMemes.length > 0 && (
           <MemeDisplay 
             memes={suggestedMemes} 
@@ -374,56 +313,16 @@ const Index = () => {
           />
         )}
 
-        {/* Main Input Area - Now at Bottom */}
-        <Card className="bg-black/30 border-primary/30 backdrop-blur-lg max-w-2xl mx-auto mt-8 mb-8 shadow-2xl">
-          <CardHeader>
-            <CardTitle className="text-foreground flex items-center gap-2 font-chakra">
-              <MessageSquare className="h-5 w-5 text-primary" />
-              spill the digital tea ☕
-            </CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-4">
-            <Textarea
-              placeholder="drop that unhinged convo or tell me what main character moment is happening..."
-              value={inputText}
-              onChange={(e) => setInputText(e.target.value)}
-              className="bg-secondary/50 border-primary/30 text-foreground placeholder:text-muted-foreground min-h-[120px] text-lg"
-            />
-            
-            <MemeVibeClassifier
-              inputText={inputText}
-              onVibeDetected={handleVibeDetection}
-              isAnalyzing={isAnalyzing}
-              setIsAnalyzing={setIsAnalyzing}
-            />
+        <MainInput
+          inputText={inputText}
+          setInputText={setInputText}
+          handleVibeDetection={handleVibeDetection}
+          isAnalyzing={isAnalyzing}
+          setIsAnalyzing={setIsAnalyzing}
+          detectedVibe={detectedVibe}
+        />
 
-            {detectedVibe && (
-              <div className="flex items-center gap-2 flex-wrap">
-                <span className="text-sm text-muted-foreground">vibe successfully captured:</span>
-                <Badge variant="default" className="bg-primary text-primary-foreground border-none">
-                  {detectedVibe} energy locked and loaded 🔥
-                </Badge>
-              </div>
-            )}
-          </CardContent>
-        </Card>
-
-        {/* Gen Z Footer */}
-        <div className="text-center mt-12 space-y-4">
-          <div className="flex justify-center items-center gap-4 text-2xl">
-            <span>💯</span>
-            <span>🔥</span>
-            <span>✨</span>
-            <span>💀</span>
-            <span>👑</span>
-          </div>
-          <p className="text-muted-foreground text-sm">
-            built different for the chronically online generation
-          </p>
-          <p className="text-xs text-muted-foreground/70">
-            no cap, your chaos control agents got your back 24/7 💫
-          </p>
-        </div>
+        <Footer />
       </div>
 
       {/* Enhanced Floating Action Button */}

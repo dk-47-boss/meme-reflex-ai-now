@@ -1,7 +1,8 @@
+
 import React from 'react';
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Share2, Copy } from "lucide-react";
+import { Share2, Copy, Volume2, VolumeX } from "lucide-react";
 import { toast } from "@/hooks/use-toast";
 
 interface Meme {
@@ -9,6 +10,7 @@ interface Meme {
   title: string;
   url: string;
   tags: string[];
+  type?: 'image' | 'video';
 }
 
 interface MemeDisplayProps {
@@ -99,13 +101,29 @@ const MemeDisplay: React.FC<MemeDisplayProps> = ({ memes, vibe }) => {
           >
             <CardContent className="p-0">
               <div className="relative">
-                <img 
-                  src={meme.url} 
-                  alt={meme.title}
-                  className="w-full h-56 object-cover cursor-pointer transition-all duration-300 group-hover:brightness-110"
-                  onClick={() => handleCopyMeme(meme)}
-                  loading="lazy"
-                />
+                {meme.type === 'video' ? (
+                  <video
+                    src={meme.url}
+                    className="w-full h-56 object-cover cursor-pointer"
+                    onClick={(e) => {
+                      const video = e.currentTarget;
+                      video.paused ? video.play() : video.pause();
+                    }}
+                    onMouseOver={e => e.currentTarget.play()}
+                    onMouseOut={e => e.currentTarget.pause()}
+                    loop
+                    muted
+                    playsInline
+                  />
+                ) : (
+                  <img 
+                    src={meme.url} 
+                    alt={meme.title}
+                    className="w-full h-56 object-cover cursor-pointer transition-all duration-300 group-hover:brightness-110"
+                    onClick={() => handleCopyMeme(meme)}
+                    loading="lazy"
+                  />
+                )}
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-all duration-300 flex items-end justify-center pb-4">
                   <div className="flex gap-3">
                     <Button
@@ -135,7 +153,8 @@ const MemeDisplay: React.FC<MemeDisplayProps> = ({ memes, vibe }) => {
                 </div>
                 
                 {/* Reaction indicator */}
-                <div className="absolute top-3 right-3 bg-black/60 rounded-full px-2 py-1 text-xs text-white font-medium">
+                <div className="absolute top-3 right-3 bg-black/60 rounded-full px-2 py-1 text-xs text-white font-medium flex items-center gap-1">
+                  {meme.type === 'video' && <Volume2 className="h-3 w-3" />}
                   #{index + 1} fire 🔥
                 </div>
               </div>
