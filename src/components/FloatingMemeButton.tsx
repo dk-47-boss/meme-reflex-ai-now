@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
@@ -6,10 +7,18 @@ import { toast } from "@/hooks/use-toast";
 
 interface FloatingMemeButtonProps {
   onQuickCapture: () => void;
+  onEmergencyMeme: () => void;
 }
 
-const FloatingMemeButton: React.FC<FloatingMemeButtonProps> = ({ onQuickCapture }) => {
+const FloatingMemeButton: React.FC<FloatingMemeButtonProps> = ({ onQuickCapture, onEmergencyMeme }) => {
   const [isOpen, setIsOpen] = useState(false);
+
+  const autoAnalyze = () => {
+    setTimeout(() => {
+      const analyzer = document.querySelector('[data-analyze-button]') as HTMLElement;
+      analyzer?.click();
+    }, 1000);
+  };
 
   const activateSnatcher = () => {
     // Real screen capture functionality
@@ -52,14 +61,15 @@ const FloatingMemeButton: React.FC<FloatingMemeButtonProps> = ({ onQuickCapture 
               title: "📸 Snatcher Success!",
               description: "Text extracted and ready for meme analysis",
             });
+            autoAnalyze();
           });
         })
         .catch(() => {
           // Fallback to simulated capture
           onQuickCapture();
           toast({
-            title: "📸 Snatcher (Demo)",
-            description: "Full screen capture works in the mobile app",
+            title: "📸 Snatcher (Demo Mode)",
+            description: "Screen capture failed or was denied. Using demo.",
           });
         });
     } else {
@@ -84,11 +94,7 @@ const FloatingMemeButton: React.FC<FloatingMemeButtonProps> = ({ onQuickCapture 
         const transcript = event.results[event.results.length - 1][0].transcript.toLowerCase();
         if (transcript.includes('emergency') || transcript.includes('save me') || transcript.includes('help')) {
           recognition.stop();
-          onQuickCapture();
-          toast({
-            title: "🆘 EMERGENCY RESPONSE!",
-            description: "Deploying tactical memes immediately!",
-          });
+          onEmergencyMeme();
         }
       };
       
@@ -132,6 +138,7 @@ const FloatingMemeButton: React.FC<FloatingMemeButtonProps> = ({ onQuickCapture 
         title: "👻 Hunter Activated!",
         description: "Analyzing ghosting patterns and generating comebacks",
       });
+      autoAnalyze();
     }
     
     // Start background monitoring for ghosting patterns
@@ -183,6 +190,7 @@ const FloatingMemeButton: React.FC<FloatingMemeButtonProps> = ({ onQuickCapture 
       title: "🎭 Wildcard UNLEASHED!",
       description: "All social filters have been disabled buddy",
     });
+    autoAnalyze();
     
     // Random chaos interventions
     let chaosCount = 0;

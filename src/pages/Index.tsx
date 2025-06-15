@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -87,6 +86,11 @@ const Index = () => {
       title: "🚨 EMERGENCY MEME DEPLOYMENT!",
       description: `Voice activated: "${randomPhrase}"`,
     });
+    // Auto-analyze after trigger
+    setTimeout(() => {
+      const analyzer = document.querySelector('[data-analyze-button]') as HTMLElement;
+      analyzer?.click();
+    }, 1500);
   };
 
   const simulateSnatcher = () => {
@@ -120,6 +124,11 @@ const Index = () => {
       title: "👻 Hunter Deployed!",
       description: "Anti-ghosting protocol activated - scanning for signs of life",
     });
+    // Auto-analyze after deploying
+    setTimeout(() => {
+      const analyzer = document.querySelector('[data-analyze-button]') as HTMLElement;
+      analyzer?.click();
+    }, 1500);
   };
 
   const toggleVoiceMode = () => {
@@ -145,6 +154,11 @@ const Index = () => {
       title: "🎭 Wildcard UNLEASHED!",
       description: "All social filters have been disabled buddy",
     });
+    // Auto-analyze after unleashing
+    setTimeout(() => {
+      const analyzer = document.querySelector('[data-analyze-button]') as HTMLElement;
+      analyzer?.click();
+    }, 1500);
   };
 
   return (
@@ -323,7 +337,7 @@ const Index = () => {
       </div>
 
       {/* Enhanced Floating Action Button */}
-      <FloatingMemeButton onQuickCapture={simulateSnatcher} />
+      <FloatingMemeButton onQuickCapture={simulateSnatcher} onEmergencyMeme={simulateVoiceTrigger} />
     </div>
   );
 };
