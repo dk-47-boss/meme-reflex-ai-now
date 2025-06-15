@@ -433,6 +433,7 @@ const Index = () => {
         featureSet={currentThemeConfig.features}
         sheetTitle={currentThemeConfig.sheetTitle}
         sheetDescription={currentThemeConfig.sheetDescription}
+        buttonCardStyle={currentThemeConfig.cardStyle}
       />
     </div>
   );

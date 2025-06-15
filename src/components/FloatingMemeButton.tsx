@@ -1,9 +1,9 @@
-
 import React, { useState } from 'react';
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { Sparkles } from "lucide-react";
 import { toast } from "@/hooks/use-toast";
+import { cn } from '@/lib/utils';
 
 interface FloatingMemeButtonProps {
   onQuickCapture: () => void;
@@ -17,6 +17,7 @@ interface FloatingMemeButtonProps {
   }[];
   sheetTitle: string;
   sheetDescription: string;
+  buttonCardStyle: string;
 }
 
 const FloatingMemeButton: React.FC<FloatingMemeButtonProps> = ({ 
@@ -25,7 +26,8 @@ const FloatingMemeButton: React.FC<FloatingMemeButtonProps> = ({
   isVoiceModeActive,
   featureSet,
   sheetTitle,
-  sheetDescription 
+  sheetDescription,
+  buttonCardStyle,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
 
@@ -210,6 +212,8 @@ const FloatingMemeButton: React.FC<FloatingMemeButtonProps> = ({
     setIsOpen(false);
   };
 
+  const baseButtonClass = "h-24 flex flex-col items-center justify-center shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105";
+
   return (
     <>
       <div className="fixed bottom-6 right-6 z-50" data-floating-meme>
@@ -226,7 +230,7 @@ const FloatingMemeButton: React.FC<FloatingMemeButtonProps> = ({
             </Button>
           </SheetTrigger>
           
-          <SheetContent side="bottom" className="bg-gradient-to-br from-background/95 via-secondary/95 to-accent/95 border-primary/30 text-foreground backdrop-blur-lg">
+          <SheetContent side="bottom" className="bg-card/95 backdrop-blur-md border-t border-primary/30 text-foreground">
             <SheetHeader>
               <SheetTitle className="text-foreground text-xl font-black flex items-center gap-2 font-chakra">
                 <span>🆘</span>
@@ -238,10 +242,14 @@ const FloatingMemeButton: React.FC<FloatingMemeButtonProps> = ({
               </SheetDescription>
             </SheetHeader>
             
-            <div className="grid grid-cols-2 gap-4 mt-8">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-8">
               <Button
                 onClick={activateSnatcher}
-                className="bg-gradient-to-r from-primary to-secondary hover:from-primary/90 hover:to-secondary/90 text-primary-foreground h-24 flex flex-col items-center justify-center shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105"
+                className={cn(
+                  "bg-gradient-to-r from-primary to-secondary hover:from-primary/90 hover:to-secondary/90 text-primary-foreground",
+                  baseButtonClass,
+                  buttonCardStyle
+                )}
               >
                 <span className="text-3xl mb-2">{snatcherFeature.emoji}</span>
                 <span className="font-bold">{snatcherFeature.name.toLowerCase()}</span>
@@ -251,7 +259,12 @@ const FloatingMemeButton: React.FC<FloatingMemeButtonProps> = ({
               <Button
                 onClick={activateVoiceWave}
                 variant="outline"
-                className={`border-destructive/50 text-foreground h-24 flex flex-col items-center justify-center hover:scale-105 transition-all duration-300 ${isVoiceModeActive ? 'bg-destructive/40 animate-pulse' : 'hover:bg-destructive/20'}`}
+                className={cn(
+                  "text-foreground",
+                  baseButtonClass,
+                  buttonCardStyle,
+                  isVoiceModeActive ? 'bg-destructive/40 animate-pulse border-destructive/50' : 'hover:bg-destructive/20 border-destructive/50'
+                )}
               >
                 <span className="text-3xl mb-2">{voiceWaveFeature.emoji}</span>
                 <span className="font-bold">{voiceWaveFeature.name.toLowerCase()}</span>
@@ -261,7 +274,11 @@ const FloatingMemeButton: React.FC<FloatingMemeButtonProps> = ({
               <Button
                 onClick={activateHunter}
                 variant="outline"
-                className="border-primary/50 text-foreground hover:bg-primary/20 h-24 flex flex-col items-center justify-center hover:scale-105 transition-all duration-300"
+                className={cn(
+                  "text-foreground hover:bg-primary/20",
+                  baseButtonClass,
+                  buttonCardStyle,
+                )}
               >
                 <span className="text-3xl mb-2">{hunterFeature.emoji}</span>
                 <span className="font-bold">{hunterFeature.name.toLowerCase()}</span>
@@ -271,7 +288,11 @@ const FloatingMemeButton: React.FC<FloatingMemeButtonProps> = ({
               <Button
                 onClick={activateWildcard}
                 variant="outline"
-                className="border-primary/50 text-foreground hover:bg-primary/20 h-24 flex flex-col items-center justify-center hover:scale-105 transition-all duration-300"
+                className={cn(
+                  "text-foreground hover:bg-primary/20",
+                  baseButtonClass,
+                  buttonCardStyle,
+                )}
               >
                 <span className="text-3xl mb-2">{wildcardFeature.emoji}</span>
                 <span className="font-bold">{wildcardFeature.name.toLowerCase()}</span>
