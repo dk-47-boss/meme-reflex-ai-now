@@ -5,9 +5,15 @@ import { toast } from "@/hooks/use-toast";
 
 interface NativeServiceProps {
   onTriggerMeme: () => void;
+  onServiceReady?: (services: {
+    activateVibeWatchdog: () => void;
+    activateCringeDetector: () => void;
+    deactivateFeature: (featureName: string) => void;
+    activeFeatures: string[];
+  }) => void;
 }
 
-const NativeService: React.FC<NativeServiceProps> = ({ onTriggerMeme }) => {
+const NativeService: React.FC<NativeServiceProps> = ({ onTriggerMeme, onServiceReady }) => {
   const [activeFeatures, setActiveFeatures] = useState<string[]>([]);
   
   useEffect(() => {
@@ -19,10 +25,22 @@ const NativeService: React.FC<NativeServiceProps> = ({ onTriggerMeme }) => {
     }
   }, []);
 
+  // Expose functions to parent when component mounts
+  useEffect(() => {
+    if (onServiceReady) {
+      onServiceReady({
+        activateVibeWatchdog,
+        activateCringeDetector,
+        deactivateFeature,
+        activeFeatures
+      });
+    }
+  }, [activeFeatures, onServiceReady]);
+
   const initializeNativeFeatures = async () => {
     try {
       toast({
-        title: "🚀 Vibe Check HQ Online!",
+        title: "🚀 Vibe Check Emergency HQ Online!",
         description: "Your digital guardian angels are locked and loaded bestie",
       });
     } catch (error) {
@@ -143,14 +161,6 @@ const NativeService: React.FC<NativeServiceProps> = ({ onTriggerMeme }) => {
       description: "Feature stopped - reactivate anytime bestie",
     });
   };
-
-  // Expose functions to parent component
-  React.useImperativeHandle(React.forwardRef(() => null), () => ({
-    activateVibeWatchdog,
-    activateCringeDetector,
-    deactivateFeature,
-    activeFeatures
-  }));
 
   return null;
 };
