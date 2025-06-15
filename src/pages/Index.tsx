@@ -24,6 +24,10 @@ const themeConfig = {
       { name: 'Hunter', description: 'anti-ghosting patrol & comeback generator', short_description: 'anti-ghosting patrol', emoji: '👻' },
       { name: 'Wildcard', description: 'unleash your unhinged energy', short_description: 'unhinged energy unleashed', emoji: '🎭' }
     ],
+    headerIcons: ['🌀', '✨', '⚡', '🤖'],
+    cardLayout: 'grid md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8',
+    cardStyle: 'border-primary/30',
+    showDescription: true,
   },
   'retro-neon-arcade': {
     title: "Arcade Alley",
@@ -36,6 +40,10 @@ const themeConfig = {
       { name: 'Ghost Hunt', description: 'track high scores of vanished players', short_description: 'hunt digital ghosts', emoji: '👻' },
       { name: 'Power-Up', description: 'gain a temporary social buff', short_description: 'get a 1-UP', emoji: '🍄' }
     ],
+    headerIcons: ['🕹️', '👾', '🍄', '⭐'],
+    cardLayout: 'grid grid-cols-2 gap-6 mb-8',
+    cardStyle: 'border-secondary/50 rounded-none shadow-secondary/20 shadow-lg',
+    showDescription: true,
   },
   'cyberpunk-vaporwave': {
     title: "NetRunner's Deck",
@@ -48,6 +56,10 @@ const themeConfig = {
       { name: 'Shadow Run', description: 'hunt rogue AIs in the digital rain', short_description: 'hunt rogue AIs', emoji: '🤖' },
       { name: 'Glitch Protocol', description: 'initiate reality distortion', short_description: 'distort reality', emoji: '🌀' }
     ],
+    headerIcons: ['🌃', '💾', '🤖', '🌐'],
+    cardLayout: 'grid md:grid-cols-4 gap-4 mb-8',
+    cardStyle: 'border-secondary/40 border-2',
+    showDescription: true,
   },
   'sunset-vibes': {
     title: "Sunset Memery",
@@ -60,6 +72,10 @@ const themeConfig = {
       { name: 'Sun Sentinel', description: 'watch over fading conversations', short_description: 'watch convos fade', emoji: '🧡' },
       { name: 'Main Character', description: 'your moment to shine in the spotlight', short_description: 'become the star', emoji: '✨' }
     ],
+    headerIcons: ['🌅', '🎶', '✨', '🧡'],
+    cardLayout: 'grid grid-cols-1 md:grid-cols-2 gap-8 mb-8',
+    cardStyle: 'rounded-2xl border-primary/20 shadow-lg',
+    showDescription: true,
   },
   'electric-mint': {
     title: "Fresh Memes",
@@ -72,6 +88,10 @@ const themeConfig = {
       { name: 'Cool Tracker', description: 'keep tabs with a chill vibe', short_description: 'track with chill', emoji: '🧊' },
       { name: 'Refresh', description: 'reboot your social battery', short_description: 'reboot social battery', emoji: '💧' }
     ],
+    headerIcons: ['🍃', '🧊', '💧', '🌿'],
+    cardLayout: 'grid grid-cols-2 lg:grid-cols-4 gap-3 mb-8',
+    cardStyle: 'border-primary/50 rounded-full aspect-square flex flex-col items-center justify-center p-2',
+    showDescription: false,
   },
   'hot-magenta-chaos': {
     title: "Chaos Core",
@@ -84,6 +104,10 @@ const themeConfig = {
       { name: 'Anarchy Agent', description: 'sow discord in your group chats', short_description: 'create group chaos', emoji: '😈' },
       { name: 'Mayhem Mode', description: 'embrace the beautiful chaotic mess', short_description: 'embrace the mess', emoji: '🌪️' }
     ],
+    headerIcons: ['💥', '💖', '😈', '🌪️'],
+    cardLayout: 'grid grid-cols-2 md:grid-cols-4 gap-4 mb-8 -rotate-1',
+    cardStyle: 'border-secondary/80 border-dashed border-2 hover:rotate-2 transition-transform',
+    showDescription: true,
   }
 };
 
@@ -274,16 +298,16 @@ const Index = () => {
       <div className="container mx-auto px-4 py-8 relative z-10">
         <div className="text-center mb-8">
           <div className="flex items-center justify-center gap-3 mb-4">
-            <span className="text-4xl animate-spin">🌀</span>
-            <Sparkles className="h-8 w-8 text-primary animate-pulse" />
+            <span className="text-4xl animate-spin" style={{ animationDuration: '3s' }}>{currentThemeConfig.headerIcons[0]}</span>
+            <span className="text-4xl animate-pulse">{currentThemeConfig.headerIcons[1]}</span>
             <h1 
               className="text-5xl md:text-7xl font-black mb-2 bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent animate-pulse font-chakra"
               style={{ textShadow: "0 0 12px hsl(var(--primary) / 0.8)" }}
             >
-              {currentThemeConfig.title}
+              MemeVault
             </h1>
-            <Zap className="h-8 w-8 text-primary animate-pulse" />
-            <span className="text-4xl animate-spin">✨</span>
+            <span className="text-4xl animate-pulse">{currentThemeConfig.headerIcons[2]}</span>
+            <span className="text-4xl animate-spin" style={{ animationDuration: '3.5s' }}>{currentThemeConfig.headerIcons[3]}</span>
           </div>
           <p className="text-xl md:text-2xl text-muted-foreground mb-2 font-medium">
             {currentThemeConfig.description}
@@ -315,18 +339,18 @@ const Index = () => {
         </div>
 
         {/* Updated Feature Demo Cards - Made Smaller */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+        <div className={currentThemeConfig.cardLayout}>
           {currentThemeConfig.features.map((feature, index) => (
             <Card 
               key={feature.name}
-              className={`bg-card/50 ${index === 0 ? 'border-destructive/50' : 'border-primary/30'} backdrop-blur-sm cursor-pointer hover:scale-105 transition-all duration-300 group animate-float`}
+              className={`bg-card/50 backdrop-blur-sm cursor-pointer hover:scale-105 transition-all duration-300 group animate-float ${currentThemeConfig.cardStyle} ${index === 0 ? 'border-destructive/50' : ''}`}
               onClick={featureHandlers[index]}
               style={{ animationDelay: `${index * 0.5}s` }}
             >
               <CardContent className="p-4 text-center">
                 <div className="text-3xl mb-2 group-hover:animate-bounce">{feature.emoji}</div>
                 <h3 className="font-bold text-foreground mb-1 text-sm font-chakra">{feature.name}</h3>
-                <p className="text-xs text-muted-foreground mb-2">{feature.description}</p>
+                {currentThemeConfig.showDescription && <p className="text-xs text-muted-foreground mb-2">{feature.description}</p>}
                 {index === 0 ? (
                   <Badge variant={isVoiceModeActive ? 'destructive' : 'secondary'} className={`${isVoiceModeActive ? 'animate-pulse' : ''}`}>
                     {isVoiceModeActive ? `${feature.emoji} ACTIVE` : '🔇 tap'}
