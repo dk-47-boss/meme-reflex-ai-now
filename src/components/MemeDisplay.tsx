@@ -2,15 +2,15 @@
 import React from 'react';
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Share2, Copy, Play } from "lucide-react";
+import { Share2, Copy } from "lucide-react";
 import { toast } from "@/hooks/use-toast";
 
 interface Meme {
   id: number;
   title: string;
-  url: string;
+  content: string;
   tags: string[];
-  type?: 'image' | 'video';
+  type: 'text' | 'image';
 }
 
 interface MemeDisplayProps {
@@ -20,57 +20,48 @@ interface MemeDisplayProps {
 
 const MemeDisplay: React.FC<MemeDisplayProps> = ({ memes, vibe }) => {
   
+  const handleCopyMeme = async (meme: Meme) => {
+    try {
+      await navigator.clipboard.writeText(meme.content);
+      toast({
+        title: "Meme copied! 📋",
+        description: "Ready to paste that fire content anywhere"
+      });
+    } catch (error) {
+      toast({
+        title: "Copy failed 😭",
+        description: "Try selecting the text manually",
+        variant: "destructive"
+      });
+    }
+  };
+
   const handleShareMeme = async (meme: Meme) => {
     try {
       if (navigator.share) {
         await navigator.share({
-          title: `this meme hits different for ${vibe.toLowerCase()} energy`,
-          text: `sending you this fire meme: ${meme.title} 🔥`,
-          url: meme.url
+          title: `Perfect meme for ${vibe.toLowerCase()} vibes`,
+          text: meme.content
         });
         toast({
-          title: "shared the vibe! 📤",
-          description: "meme sent to the group chat fr"
+          title: "Meme shared! 📤",
+          description: "Spreading the chaos successfully"
         });
       } else {
-        await navigator.clipboard.writeText(meme.url);
+        await navigator.clipboard.writeText(meme.content);
         toast({
-          title: "link copied buddy! 📋",
-          description: "paste that fire content anywhere"
+          title: "Meme copied for sharing! 📋",
+          description: "Paste it wherever you want to spread the vibes"
         });
       }
     } catch (error) {
       console.error('Share failed:', error);
       toast({
-        title: "sharing failed rip 💀",
-        description: "try the copy button instead",
+        title: "Sharing failed 💀",
+        description: "But the meme is still fire, copy it manually",
         variant: "destructive"
       });
     }
-  };
-
-  const handleCopyMeme = async (meme: Meme) => {
-    try {
-      await navigator.clipboard.writeText(meme.url);
-      toast({
-        title: "YouTube link copied! 🎯",
-        description: "ready to share that fire content"
-      });
-    } catch (error) {
-      toast({
-        title: "copy failed buddy 😭",
-        description: "try selecting the URL manually",
-        variant: "destructive"
-      });
-    }
-  };
-
-  const getEmbedUrl = (url: string) => {
-    if (url.includes('youtube.com/embed/')) {
-      return url;
-    }
-    // Convert other YouTube URLs to embed format if needed
-    return url;
   };
 
   return (
@@ -80,11 +71,11 @@ const MemeDisplay: React.FC<MemeDisplayProps> = ({ memes, vibe }) => {
           perfect memes for that "{vibe.toLowerCase()}" energy 🎯
         </h2>
         <p className="text-gray-300 text-lg">
-          tap any video to watch + copy link instantly (no cap)
+          tap to copy any meme instantly - ready to paste anywhere 📱
         </p>
         <div className="flex justify-center items-center gap-2 mt-2">
-          <span className="text-2xl">💯</span>
-          <span className="text-sm text-gray-400">these hit different fr</span>
+          <span className="text-2xl">📋</span>
+          <span className="text-sm text-gray-400">copy-paste ready memes</span>
           <span className="text-2xl">🔥</span>
         </div>
       </div>
@@ -93,85 +84,31 @@ const MemeDisplay: React.FC<MemeDisplayProps> = ({ memes, vibe }) => {
         {memes.map((meme, index) => (
           <Card 
             key={meme.id} 
-            className="bg-black/40 border-purple-500/30 backdrop-blur-lg overflow-hidden hover:border-pink-400/50 transition-all duration-300 hover:scale-105 group shadow-xl"
+            className="bg-black/40 border-purple-500/30 backdrop-blur-lg overflow-hidden hover:border-pink-400/50 transition-all duration-300 hover:scale-105 group shadow-xl cursor-pointer"
+            onClick={() => handleCopyMeme(meme)}
           >
-            <CardContent className="p-0">
-              <div className="relative">
-                {meme.type === 'video' && meme.url.includes('youtube.com') ? (
-                  <div className="relative">
-                    <iframe
-                      src={getEmbedUrl(meme.url)}
-                      title={meme.title}
-                      className="w-full h-56"
-                      frameBorder="0"
-                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                      allowFullScreen
-                    />
-                    <div className="absolute top-3 left-3 bg-red-600 rounded px-2 py-1 text-xs text-white font-bold flex items-center gap-1">
-                      <Play className="h-3 w-3" />
-                      YOUTUBE
+            <CardContent className="p-6">
+              <div className="mb-4">
+                <div className="flex justify-between items-start mb-3">
+                  <h3 className="font-bold text-white text-lg">{meme.title}</h3>
+                  <div className="bg-black/60 rounded-full px-2 py-1 text-xs text-white font-medium">
+                    #{index + 1}
+                  </div>
+                </div>
+                
+                <div className="bg-gray-900/50 rounded-lg p-4 border border-gray-700/50 mb-4 min-h-[120px] relative group-hover:border-purple-400/50 transition-colors">
+                  <pre className="text-white text-sm whitespace-pre-wrap font-mono leading-relaxed">
+                    {meme.content}
+                  </pre>
+                  
+                  <div className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                    <div className="bg-purple-600 rounded px-2 py-1 text-xs text-white font-medium">
+                      Click to copy!
                     </div>
                   </div>
-                ) : meme.type === 'video' ? (
-                  <video
-                    src={meme.url}
-                    className="w-full h-56 object-cover cursor-pointer"
-                    onClick={(e) => {
-                      const video = e.currentTarget;
-                      video.paused ? video.play() : video.pause();
-                    }}
-                    onMouseOver={e => e.currentTarget.play()}
-                    onMouseOut={e => e.currentTarget.pause()}
-                    loop
-                    muted
-                    playsInline
-                  />
-                ) : (
-                  <img 
-                    src={meme.url} 
-                    alt={meme.title}
-                    className="w-full h-56 object-cover cursor-pointer transition-all duration-300 group-hover:brightness-110"
-                    onClick={() => handleCopyMeme(meme)}
-                    loading="lazy"
-                  />
-                )}
-                
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-all duration-300 flex items-end justify-center pb-4">
-                  <div className="flex gap-3">
-                    <Button
-                      size="sm"
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        handleCopyMeme(meme);
-                      }}
-                      className="bg-purple-600 hover:bg-purple-700 text-white shadow-lg"
-                    >
-                      <Copy className="h-4 w-4 mr-1" />
-                      copy link
-                    </Button>
-                    <Button
-                      size="sm"
-                      variant="outline"
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        handleShareMeme(meme);
-                      }}
-                      className="border-white/50 text-white hover:bg-white/10 shadow-lg"
-                    >
-                      <Share2 className="h-4 w-4 mr-1" />
-                      share
-                    </Button>
-                  </div>
                 </div>
                 
-                <div className="absolute top-3 right-3 bg-black/60 rounded-full px-2 py-1 text-xs text-white font-medium flex items-center gap-1">
-                  #{index + 1} fire 🔥
-                </div>
-              </div>
-              
-              <div className="p-4">
-                <h3 className="font-bold text-white mb-2 text-lg">{meme.title}</h3>
-                <div className="flex flex-wrap gap-2">
+                <div className="flex flex-wrap gap-2 mb-4">
                   {meme.tags.map((tag, tagIndex) => (
                     <span 
                       key={tagIndex}
@@ -181,6 +118,32 @@ const MemeDisplay: React.FC<MemeDisplayProps> = ({ memes, vibe }) => {
                     </span>
                   ))}
                 </div>
+                
+                <div className="flex gap-2">
+                  <Button
+                    size="sm"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      handleCopyMeme(meme);
+                    }}
+                    className="bg-purple-600 hover:bg-purple-700 text-white flex-1"
+                  >
+                    <Copy className="h-4 w-4 mr-1" />
+                    Copy
+                  </Button>
+                  <Button
+                    size="sm"
+                    variant="outline"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      handleShareMeme(meme);
+                    }}
+                    className="border-white/50 text-white hover:bg-white/10"
+                  >
+                    <Share2 className="h-4 w-4 mr-1" />
+                    Share
+                  </Button>
+                </div>
               </div>
             </CardContent>
           </Card>
@@ -189,16 +152,16 @@ const MemeDisplay: React.FC<MemeDisplayProps> = ({ memes, vibe }) => {
 
       <div className="text-center mt-10 space-y-4">
         <div className="flex justify-center items-center gap-4 text-3xl">
-          <span>💀</span>
-          <span>🤌</span>
-          <span>✨</span>
-          <span>👑</span>
+          <span>📱</span>
+          <span>📋</span>
+          <span>🔥</span>
+          <span>💯</span>
         </div>
         <p className="text-gray-300 font-medium">
-          💡 these YouTube videos are perfectly curated for your current vibe check
+          💡 All memes are copy-paste ready - perfect for texting, social media, and group chats
         </p>
         <p className="text-gray-500 text-sm">
-          mobile app dropping soon with even more fire features 🚀
+          Mobile app dropping soon with even more features 🚀
         </p>
       </div>
     </div>
