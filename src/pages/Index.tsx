@@ -118,7 +118,6 @@ const Index = () => {
   const [suggestedMemes, setSuggestedMemes] = useState<any[]>([]);
   const [isAnalyzing, setIsAnalyzing] = useState(false);
   const [isVoiceModeActive, setIsVoiceModeActive] = useState(false);
-  const [notifications, setNotifications] = useState<string[]>([]);
   const [currentTheme, setCurrentTheme] = useState('synthwave');
 
   const currentThemeConfig = themeConfig[currentTheme as keyof typeof themeConfig];
@@ -147,32 +146,6 @@ const Index = () => {
     }
   }, [isVoiceModeActive]);
 
-  // Enhanced notification monitoring with more chaos
-  useEffect(() => {
-    const interval = setInterval(() => {
-      const chaosNotifications = [
-        "🚨 WhatsApp: Someone's typing for 15 minutes straight",
-        "👻 Instagram: Left on read by your crush (again)",
-        "💀 Snapchat: They opened your snap 6 hours ago",
-        "😬 iMessage: 'Delivered' since the stone age",
-        "🎭 Discord: They're online but ignoring your DMs",
-        "⚡ TikTok: They liked your comment but won't text back"
-      ];
-      
-      if (Math.random() < 0.4) { // 40% chance every 8 seconds
-        const notification = chaosNotifications[Math.floor(Math.random() * chaosNotifications.length)];
-        setNotifications(prev => [notification, ...prev.slice(0, 2)]);
-        
-        toast({
-          title: "Chaos Alert! 🛡️",
-          description: notification,
-        });
-      }
-    }, 8000);
-
-    return () => clearInterval(interval);
-  }, []);
-
   const handleVibeDetection = (vibe: string, memes: any[]) => {
     setDetectedVibe(vibe);
     setSuggestedMemes(memes);
@@ -195,7 +168,6 @@ const Index = () => {
       title: "🚨 MEME-ERGENCY DEPLOYED!",
       description: `Voice activated: "${randomPhrase}"`,
     });
-    // Auto-analyze after trigger
     setTimeout(() => {
       const analyzer = document.querySelector('[data-analyze-button]') as HTMLElement;
       analyzer?.click();
@@ -203,7 +175,6 @@ const Index = () => {
   };
 
   const simulateSnatcher = () => {
-    // Enhanced screen capture simulation
     const yoinkedTexts = [
       "buddy really thought that was smooth 💀",
       "sir the delusion is concerning",
@@ -220,7 +191,6 @@ const Index = () => {
       description: "Text successfully stolen from the digital streets",
     });
     
-    // Auto-analyze after capture
     setTimeout(() => {
       const analyzer = document.querySelector('[data-analyze-button]') as HTMLElement;
       analyzer?.click();
@@ -233,7 +203,6 @@ const Index = () => {
       title: "👻 Hunter Deployed!",
       description: "Anti-ghosting protocol activated - scanning for signs of life",
     });
-    // Auto-analyze after deploying
     setTimeout(() => {
       const analyzer = document.querySelector('[data-analyze-button]') as HTMLElement;
       analyzer?.click();
@@ -263,7 +232,6 @@ const Index = () => {
       title: "🎭 Wildcard UNLEASHED!",
       description: "All social filters have been disabled buddy",
     });
-    // Auto-analyze after unleashing
     setTimeout(() => {
       const analyzer = document.querySelector('[data-analyze-button]') as HTMLElement;
       analyzer?.click();
@@ -292,7 +260,7 @@ const Index = () => {
           </SheetContent>
         </Sheet>
       </div>
-      {/* Native Service Integration */}
+      
       <NativeService onTriggerMeme={simulateVoiceTrigger} />
       
       <div className="container mx-auto px-4 py-8 relative z-10">
@@ -325,7 +293,6 @@ const Index = () => {
         <Footer />
       </div>
 
-      {/* Enhanced Floating Action Button */}
       <FloatingMemeButton 
         onQuickCapture={simulateSnatcher} 
         onToggleVoiceMode={toggleVoiceMode}

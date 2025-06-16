@@ -2,7 +2,7 @@
 import React from 'react';
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Share2, Copy, Volume2, VolumeX } from "lucide-react";
+import { Share2, Copy, Play } from "lucide-react";
 import { toast } from "@/hooks/use-toast";
 
 interface Meme {
@@ -51,30 +51,26 @@ const MemeDisplay: React.FC<MemeDisplayProps> = ({ memes, vibe }) => {
 
   const handleCopyMeme = async (meme: Meme) => {
     try {
-      const response = await fetch(meme.url);
-      const blob = await response.blob();
-      await navigator.clipboard.write([
-        new ClipboardItem({ [blob.type]: blob })
-      ]);
+      await navigator.clipboard.writeText(meme.url);
       toast({
-        title: "meme copied! 🎯",
-        description: "ready to paste that heat directly in chat"
+        title: "YouTube link copied! 🎯",
+        description: "ready to share that fire content"
       });
     } catch (error) {
-      try {
-        await navigator.clipboard.writeText(meme.url);
-        toast({
-          title: "URL copied instead! 📋",
-          description: "paste the link buddy"
-        });
-      } catch (urlError) {
-        toast({
-          title: "copy failed buddy 😭",
-          description: "try saving the image manually",
-          variant: "destructive"
-        });
-      }
+      toast({
+        title: "copy failed buddy 😭",
+        description: "try selecting the URL manually",
+        variant: "destructive"
+      });
     }
+  };
+
+  const getEmbedUrl = (url: string) => {
+    if (url.includes('youtube.com/embed/')) {
+      return url;
+    }
+    // Convert other YouTube URLs to embed format if needed
+    return url;
   };
 
   return (
@@ -84,7 +80,7 @@ const MemeDisplay: React.FC<MemeDisplayProps> = ({ memes, vibe }) => {
           perfect memes for that "{vibe.toLowerCase()}" energy 🎯
         </h2>
         <p className="text-gray-300 text-lg">
-          tap any meme to copy + paste instantly (no cap)
+          tap any video to watch + copy link instantly (no cap)
         </p>
         <div className="flex justify-center items-center gap-2 mt-2">
           <span className="text-2xl">💯</span>
@@ -101,7 +97,22 @@ const MemeDisplay: React.FC<MemeDisplayProps> = ({ memes, vibe }) => {
           >
             <CardContent className="p-0">
               <div className="relative">
-                {meme.type === 'video' ? (
+                {meme.type === 'video' && meme.url.includes('youtube.com') ? (
+                  <div className="relative">
+                    <iframe
+                      src={getEmbedUrl(meme.url)}
+                      title={meme.title}
+                      className="w-full h-56"
+                      frameBorder="0"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                      allowFullScreen
+                    />
+                    <div className="absolute top-3 left-3 bg-red-600 rounded px-2 py-1 text-xs text-white font-bold flex items-center gap-1">
+                      <Play className="h-3 w-3" />
+                      YOUTUBE
+                    </div>
+                  </div>
+                ) : meme.type === 'video' ? (
                   <video
                     src={meme.url}
                     className="w-full h-56 object-cover cursor-pointer"
@@ -124,6 +135,7 @@ const MemeDisplay: React.FC<MemeDisplayProps> = ({ memes, vibe }) => {
                     loading="lazy"
                   />
                 )}
+                
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-all duration-300 flex items-end justify-center pb-4">
                   <div className="flex gap-3">
                     <Button
@@ -135,7 +147,7 @@ const MemeDisplay: React.FC<MemeDisplayProps> = ({ memes, vibe }) => {
                       className="bg-purple-600 hover:bg-purple-700 text-white shadow-lg"
                     >
                       <Copy className="h-4 w-4 mr-1" />
-                      copy meme
+                      copy link
                     </Button>
                     <Button
                       size="sm"
@@ -152,9 +164,7 @@ const MemeDisplay: React.FC<MemeDisplayProps> = ({ memes, vibe }) => {
                   </div>
                 </div>
                 
-                {/* Reaction indicator */}
                 <div className="absolute top-3 right-3 bg-black/60 rounded-full px-2 py-1 text-xs text-white font-medium flex items-center gap-1">
-                  {meme.type === 'video' && <Volume2 className="h-3 w-3" />}
                   #{index + 1} fire 🔥
                 </div>
               </div>
@@ -185,7 +195,7 @@ const MemeDisplay: React.FC<MemeDisplayProps> = ({ memes, vibe }) => {
           <span>👑</span>
         </div>
         <p className="text-gray-300 font-medium">
-          💡 these memes are perfectly curated for your current vibe check
+          💡 these YouTube videos are perfectly curated for your current vibe check
         </p>
         <p className="text-gray-500 text-sm">
           mobile app dropping soon with even more fire features 🚀
