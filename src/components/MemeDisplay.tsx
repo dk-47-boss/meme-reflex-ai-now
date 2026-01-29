@@ -2,15 +2,17 @@
 import React from 'react';
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Share2, Copy } from "lucide-react";
+import { Share2, Copy, ExternalLink, Video } from "lucide-react";
 import { toast } from "@/hooks/use-toast";
 
 interface Meme {
-  id: number;
+  id: number | string;
   title: string;
   content: string;
   tags: string[];
-  type: 'text' | 'image';
+  type: 'text' | 'image' | 'video';
+  videoUrl?: string;
+  thumbnail?: string;
 }
 
 interface MemeDisplayProps {
@@ -90,11 +92,28 @@ const MemeDisplay: React.FC<MemeDisplayProps> = ({ memes, vibe }) => {
             <CardContent className="p-6">
               <div className="mb-4">
                 <div className="flex justify-between items-start mb-3">
-                  <h3 className="font-bold text-white text-lg">{meme.title}</h3>
-                  <div className="bg-black/60 rounded-full px-2 py-1 text-xs text-white font-medium">
-                    #{index + 1}
+                  <h3 className="font-bold text-white text-lg flex items-center gap-2">
+                    {meme.type === 'video' && <Video className="h-4 w-4 text-pink-400" />}
+                    {meme.title}
+                  </h3>
+                  <div className={`rounded-full px-2 py-1 text-xs text-white font-medium ${meme.type === 'video' ? 'bg-pink-600/60' : 'bg-black/60'}`}>
+                    {meme.type === 'video' ? '🎬 Video' : `#${index + 1}`}
                   </div>
                 </div>
+                
+                {/* Video thumbnail */}
+                {meme.type === 'video' && meme.thumbnail && (
+                  <div className="mb-3 rounded-lg overflow-hidden border border-purple-500/30">
+                    <img 
+                      src={meme.thumbnail} 
+                      alt={meme.title}
+                      className="w-full h-32 object-cover"
+                      onError={(e) => {
+                        (e.target as HTMLImageElement).style.display = 'none';
+                      }}
+                    />
+                  </div>
+                )}
                 
                 <div className="bg-gray-900/50 rounded-lg p-4 border border-gray-700/50 mb-4 min-h-[120px] relative group-hover:border-purple-400/50 transition-colors">
                   <pre className="text-white text-sm whitespace-pre-wrap font-mono leading-relaxed">
@@ -131,6 +150,19 @@ const MemeDisplay: React.FC<MemeDisplayProps> = ({ memes, vibe }) => {
                     <Copy className="h-4 w-4 mr-1" />
                     Copy
                   </Button>
+                  {meme.type === 'video' && meme.videoUrl && (
+                    <Button
+                      size="sm"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        window.open(meme.videoUrl, '_blank');
+                      }}
+                      className="bg-pink-600 hover:bg-pink-700 text-white"
+                    >
+                      <ExternalLink className="h-4 w-4 mr-1" />
+                      Watch
+                    </Button>
+                  )}
                   <Button
                     size="sm"
                     variant="outline"
