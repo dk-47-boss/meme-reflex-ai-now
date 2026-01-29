@@ -9,9 +9,34 @@ interface MemeVibeClassifierProps {
   setIsAnalyzing: (analyzing: boolean) => void;
 }
 
+// Video clips from memes.co.in
+const VIDEO_MEMES = {
+  'awkward': [
+    { id: 'v1', title: 'Piche Dekho Funny', videoUrl: 'https://memes.co.in/video/piche-dekho-funny-meme-video-download', thumbnail: 'https://api.memes.co.in/media/memesvideo/thumbnail/thumbnail_7u50gz8.png', type: 'video' },
+    { id: 'v2', title: 'Dude Crying Green Screen', videoUrl: 'https://memes.co.in/video/dude-crying-green-screen-meme-video-download', thumbnail: 'https://api.memes.co.in/media/memesvideo/thumbnail/thumbnail_23PNb96.png', type: 'video' },
+  ],
+  'roasted': [
+    { id: 'v3', title: 'Allu Arjun Crying And Smiling', videoUrl: 'https://memes.co.in/video/allu-arjun-crying-and-smiling-meme-video-download', thumbnail: 'https://api.memes.co.in/media/memesvideo/thumbnail/thumbnail_aAhBG1c.png', type: 'video' },
+    { id: 'v4', title: 'Funny WWE Reaction', videoUrl: 'https://memes.co.in/video/funny-wwe-reaction-meme-video-download', thumbnail: 'https://api.memes.co.in/media/memesvideo/thumbnail/thumbnail_q2MqRu1.png', type: 'video' },
+  ],
+  'win': [
+    { id: 'v5', title: 'Ronaldo Teaching MrBeast Siuuu', videoUrl: 'https://memes.co.in/video/cristiano-ronaldo-teaching-mrbeast-how-to-siuuu-green-screen-meme-video-download', thumbnail: 'https://api.memes.co.in/media/memesvideo/thumbnail/thumbnail_N42BMIm.png', type: 'video' },
+    { id: 'v6', title: 'Rajpal Yadav Green Screen', videoUrl: 'https://memes.co.in/video/rajpal-yadav-green-screen-meme-video-download', thumbnail: 'https://api.memes.co.in/media/memesvideo/thumbnail/thumbnail_280O4o5.png', type: 'video' },
+  ],
+  'drama': [
+    { id: 'v7', title: 'SRK Saying Bhaago', videoUrl: 'https://memes.co.in/video/srk-saying-bhaago-meme-template-video-download', thumbnail: 'https://api.memes.co.in/media/memesvideo/thumbnail/thumbnail_0DM26RY.png', type: 'video' },
+    { id: 'v8', title: 'Sunil Shetty Shakti Maa', videoUrl: 'https://memes.co.in/video/sunil-shetty-chanting-shakti-maa-meme-template-video-download', thumbnail: 'https://api.memes.co.in/media/memesvideo/thumbnail/thumbnail_5e218At.png', type: 'video' },
+  ],
+  'cute': [
+    { id: 'v9', title: 'Penguin Memes', videoUrl: 'https://memes.co.in/video/penguin-memes-video-download', thumbnail: 'https://api.memes.co.in/media/memesvideo/thumbnail/thumbnail_1u9TreH.png', type: 'video' },
+    { id: 'v10', title: 'Giggles Green Screen', videoUrl: 'https://memes.co.in/video/giggles-green-screen-meme-video-download', thumbnail: 'https://api.memes.co.in/media/memesvideo/thumbnail/thumbnail_Afp9B4F.png', type: 'video' },
+  ],
+};
+
 const VIBE_CATEGORIES = {
   'awkward-silence': {
     keywords: ['...', 'um', 'okay', 'sure', 'idk', 'whatever', 'silence', 'awkward', 'chup', 'kya bolu', 'theek hai', 'pata nahi', 'ki bolbo', 'pesama iru', 'enna solrathu', 'bas kar'],
+    videoCategory: 'awkward',
     memes: [
       { 
         id: 1, 
@@ -45,6 +70,7 @@ const VIBE_CATEGORIES = {
   },
   'getting-roasted': {
     keywords: ['burn', 'savage', 'destroyed', 'owned', 'rekt', 'damn', 'brutal', 'roasted', 'murdered', '💀', 'le li', 'baj gayi', 'beizzati', 'waat lag gayi', 'bhaiiiii', 'chaap', 'mere diyeche', 'kaluvital', 'vaangi viten', 'band baj gayi', 'khatam', 'tata bye bye', 'baja di', 'mummy kasam'],
+    videoCategory: 'roasted',
     memes: [
       { 
         id: 5, 
@@ -78,6 +104,7 @@ const VIBE_CATEGORIES = {
   },
   'flirt-confusion': {
     keywords: ['cute', 'beautiful', 'hot', 'date', 'love', 'crush', 'flirt', '😍', '😘', '🥰', 'bestie', 'sundar', 'pyar', 'pyaar', 'ishq', 'mohabbat', 'jaan', 'sundor', 'bhalobasha', 'azhagu', 'kadhal', 'baby', 'sweetheart'],
+    videoCategory: 'cute',
     memes: [
       { 
         id: 9, 
@@ -177,6 +204,7 @@ const VIBE_CATEGORIES = {
   },
   'big-win-energy': {
     keywords: ['yes', 'win', 'success', 'amazing', 'awesome', 'great', 'perfect', 'nailed it', 'slay', 'fire', '🔥', 'jeete', 'safal', 'kamaal', 'badhiya', 'aag laga di', 'macha diya', 'jitechi', 'darun', 'vetri', 'arputham', 'semma', 'zabardast', 'shandar'],
+    videoCategory: 'win',
     memes: [
       { 
         id: 21, 
@@ -309,6 +337,7 @@ const VIBE_CATEGORIES = {
   },
   'bollywood-chaos': {
     keywords: ['bollywood', 'filmi', 'drama', 'natak', 'overacting', 'dramatic', 'filmy', 'cinema', 'movie', 'picture', 'hero', 'heroine'],
+    videoCategory: 'drama',
     memes: [
       { 
         id: 37, 
@@ -440,10 +469,28 @@ const MemeVibeClassifier: React.FC<MemeVibeClassifierProps> = ({
     }
 
     const vibeData = VIBE_CATEGORIES[detectedVibe as keyof typeof VIBE_CATEGORIES];
-    const shuffledMemes = [...vibeData.memes].sort(() => Math.random() - 0.5);
+    
+    // Get video memes from memes.co.in based on category
+    const videoCategory = (vibeData as any).videoCategory;
+    const videoMemes = videoCategory ? VIDEO_MEMES[videoCategory as keyof typeof VIDEO_MEMES] || [] : [];
+    
+    // Convert video memes to proper format
+    const formattedVideoMemes = videoMemes.map(vm => ({
+      id: vm.id,
+      title: `🎬 ${vm.title}`,
+      content: `📹 Video Meme from memes.co.in\n\n🔗 Watch/Download: ${vm.videoUrl}\n\n📱 Perfect for sharing on WhatsApp, Instagram, YouTube!`,
+      type: 'video' as const,
+      tags: ['video', 'memes.co.in', 'trending'],
+      videoUrl: vm.videoUrl,
+      thumbnail: vm.thumbnail
+    }));
+    
+    // Combine text memes with video memes
+    const allMemes = [...vibeData.memes, ...formattedVideoMemes];
+    const shuffledMemes = allMemes.sort(() => Math.random() - 0.5);
     const vibeName = detectedVibe.replace('-', ' ').replace(/\b\w/g, l => l.toUpperCase());
     
-    console.log(`Detected vibe: ${vibeName}, Score: ${maxScore}, Memes: ${shuffledMemes.length}`);
+    console.log(`Detected vibe: ${vibeName}, Score: ${maxScore}, Memes: ${shuffledMemes.length}, Videos: ${formattedVideoMemes.length}`);
     
     setIsAnalyzing(false);
     onVibeDetected(vibeName, shuffledMemes);
